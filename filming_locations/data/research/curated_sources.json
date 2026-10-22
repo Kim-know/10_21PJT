@@ -1,0 +1,144 @@
+[
+  {
+    "key": "chowon", "name": "초원사진관", "region": "전북특별자치도", "address": "전북특별자치도 군산시 구영2길 12-1",
+    "works": ["8월의 크리스마스"], "publisher": "군산시", "title": "초원사진관 - 군산 문화관광",
+    "url": "https://www.gunsan.go.kr/tour/m2230",
+    "summary": "군산시는 초원사진관을 영화 8월의 크리스마스의 촬영 장소로 소개한다. 촬영 뒤 철거된 사진관을 시에서 복원했다.",
+    "location_type": "복원 촬영지", "note": "현재 건물은 촬영 후 복원한 시설이다."
+  },
+  {
+    "key": "little_forest", "match_row": "3785", "name": "리틀 포레스트 혜원의 집", "address": "대구광역시 군위군 우보면 미성5길 58-1", "region": "대구광역시",
+    "works": ["리틀 포레스트"], "publisher": "군위군", "title": "군위여행 2코스 - 리틀포레스트 촬영지",
+    "url": "https://gunwi.go.kr/tour/page.do?code_uid=137&mnu_uid=816",
+    "summary": "군위군 관광 코스에 리틀포레스트 촬영지가 포함되어 있으며 우보면 미성5길 58-1로 안내된다. 군위군 관광 홈페이지는 이 장소를 영화의 배경을 촬영한 곳으로 소개한다.",
+    "additional_urls": ["https://gunwi.go.kr/tour/main.do"], "note": "원본 CSV의 경상북도 주소를 군위군 공식 안내의 대구광역시 주소로 갱신했다."
+  },
+  {
+    "key": "seoyeon", "match_row": "883", "works": ["건축학개론"], "publisher": "제주관광공사", "title": "카페서연의집 건축학개론촬영지",
+    "url": "https://www.visitjeju.net/kr/detail/view?contentsid=CNTS_000000000018357&menuId=DOM_000001918001000000",
+    "summary": "제주관광공사는 카페 서연의집을 건축학개론의 제주 촬영 세트를 바탕으로 다시 지은 공간으로 설명한다. 촬영 당시의 임시 세트와 현재 카페 건물은 구분해야 한다.",
+    "location_type": "재건축한 영화 관련 공간", "note": "현재 건물은 촬영 당시 임시 세트 그 자체가 아니다."
+  },
+  {
+    "key": "hapcheon", "match_row": "12958", "works": ["태극기 휘날리며", "암살", "써니", "마이웨이", "모던보이"], "publisher": "한국관광공사", "title": "시간을 거꾸로 달려볼까? 합천으로 떠나는 추억 여행",
+    "url": "https://korean.visitkorea.or.kr/detail/rem_detail.do?cotid=79c8f7fc-94c3-4772-be1f-51f140744afb",
+    "summary": "한국관광공사는 합천영상테마파크가 태극기 휘날리며의 평양 전투 장면 세트에서 출발했으며 암살, 써니, 마이웨이, 모던보이도 이곳에서 촬영했다고 설명한다.",
+    "location_type": "오픈 세트장"
+  },
+  {
+    "key": "iksan", "match_row": "952", "works": ["7번방의 선물", "타짜", "홀리데이"], "publisher": "철도산업정보센터", "title": "익산여행 - 익산 교도소 세트장",
+    "url": "https://www.kric.go.kr/jsp/board/portal/sub05/res/themeEssayDetail.jsp?board_seq=2764",
+    "summary": "철도산업정보센터의 여행 안내는 익산 교도소 세트장에서 7번방의 선물, 타짜, 홀리데이를 촬영했다고 설명한다.",
+    "location_type": "교도소 세트장", "note": "실제 교도소와 구별한다. 현재 개방 일정은 별도 확인 필요."
+  },
+  {
+    "key": "huinnyeoul", "match_row": "6015", "works": ["변호인"], "publisher": "한국관광공사", "title": "온 가족이 떠나는 영화 같은 여행, 부산",
+    "url": "https://korean.visitkorea.or.kr/detail/rem_detail.do?cotid=f9aad6dd-ce30-456e-bd3e-4bf00ef5c985",
+    "summary": "관광공사는 흰여울문화마을을 변호인에서 송우석이 국밥집 주인을 기다리는 골목 장면의 촬영지로 소개한다.",
+    "note": "주민이 거주하는 마을이며 모든 골목과 주택이 관광시설은 아니다."
+  },
+  {
+    "key": "busan_depart", "name": "부산데파트", "region": "부산광역시", "address": "부산광역시 중구 (세부 주소 재확인 필요)",
+    "works": ["도둑들"], "publisher": "한국관광공사", "title": "온 가족이 떠나는 영화 같은 여행, 부산",
+    "url": "https://korean.visitkorea.or.kr/detail/rem_detail.do?cotid=f9aad6dd-ce30-456e-bd3e-4bf00ef5c985",
+    "summary": "관광공사 여행 기사는 부산데파트를 영화 도둑들의 촬영 장소로 소개한다.", "address_precision": "구 단위"
+  },
+  {
+    "key": "igidae", "name": "이기대도시자연공원", "region": "부산광역시", "address": "부산광역시 남구 이기대 일대",
+    "works": ["해운대", "박수건달", "깡철이"], "publisher": "문화체육관광부", "title": "온 가족이 떠나는 영화 같은 여행, 부산",
+    "url": "https://www.mcst.go.kr/kor/s_culture/tour/tourView.jsp?pDetailSeq=324",
+    "summary": "문화체육관광부 여행 안내는 이기대도시자연공원을 해운대, 박수건달, 깡철이의 촬영 명소로 소개한다.", "address_precision": "공원 일대"
+  },
+  {
+    "key": "kkotbun", "name": "국제시장 꽃분이네", "region": "부산광역시", "address": "부산광역시 중구 국제시장 내 (점포 상세 주소 재확인 필요)",
+    "works": ["국제시장"], "publisher": "부산광역시", "title": "국제시장의 꽃분이네 - 부산시보",
+    "url": "https://www.busan.go.kr/news/specnews/view?dataNo=46532&gugun=Prev",
+    "summary": "부산시보는 국제시장 속 꽃분이네 점포를 동명 영화의 촬영지로 소개한다. 영화와 관련한 관광 코스에도 포함됐다.", "address_precision": "시장 내 점포", "note": "현재 상호·업종·영업 여부는 확인하지 않았다."
+  },
+  {
+    "key": "yongdusan", "name": "용두산공원", "region": "부산광역시", "address": "부산광역시 중구 용두산공원 일대",
+    "works": ["국제시장"], "publisher": "부산광역시", "title": "국제시장 영화 관광코스 - 부산시보",
+    "url": "https://www.busan.go.kr/news/totalnews01/view?dataNo=47149&gugun=Prev",
+    "summary": "부산시보는 국제시장 영화 촬영지 관광 코스에 꽃분이네와 용두산공원을 포함했다고 안내한다.", "address_precision": "공원 일대"
+  },
+  {
+    "key": "hwaguk", "match_row": "1186", "works": ["신세계", "범죄와의 전쟁"], "publisher": "부산광역시", "title": "부산 중구의 영화 촬영 명소 - 부산시보",
+    "url": "https://www.busan.go.kr/news/totalnews01/view?dataNo=57227&gugun=Prev",
+    "summary": "부산시보는 화국반점에서 신세계의 회식 장면과 범죄와의 전쟁의 식사 장면을 촬영했다고 설명한다."
+  },
+  {
+    "key": "yeouido_hangang", "name": "여의도한강공원", "region": "서울특별시", "address": "서울특별시 영등포구 여의도 한강 둔치 일대",
+    "works": ["괴물"], "publisher": "서울특별시 미래한강본부", "title": "영화와 드라마 속, 한강",
+    "url": "https://hangang.seoul.go.kr/www/bbsPost/38/456/detail.do?mid=571",
+    "summary": "서울시 미래한강본부는 괴물의 강두 가족 매점과 괴물이 처음 사람들을 습격하는 장면의 장소를 여의도한강공원으로 설명한다.",
+    "address_precision": "공원 일대", "note": "원본의 여의도공원 항목과 구별했다. 원효대교의 남단·북단 장면 구분은 출처가 달라 이번에는 확정하지 않았다."
+  },
+  {
+    "key": "parasite_shop", "name": "돼지쌀슈퍼", "region": "서울특별시", "address": "서울특별시 마포구 손기정로 32",
+    "works": ["기생충"], "publisher": "서울특별시", "title": "영화 기생충 여기서 찍었다! 서울 촬영지 공개",
+    "url": "https://mediahub.seoul.go.kr/news/article/newsArticlePrintPopup.do?articleNo=1268956",
+    "summary": "서울시는 돼지쌀슈퍼를 기생충 주요 촬영지 탐방 코스에 포함하고 주소를 손기정로 32로 안내한다.", "note": "2019년 기준 안내 자료이며 현재 영업 여부는 별도 확인 필요."
+  },
+  {
+    "key": "parasite_stairs", "name": "기택 동네 계단", "region": "서울특별시", "address": "서울특별시 마포구 손기정로6길 일대",
+    "works": ["기생충"], "publisher": "서울특별시", "title": "영화 기생충 여기서 찍었다! 서울 촬영지 공개",
+    "url": "https://mediahub.seoul.go.kr/news/article/newsArticlePrintPopup.do?articleNo=1268956",
+    "summary": "서울시의 기생충 탐방 코스는 기택 동네 계단을 손기정로6길의 돼지쌀슈퍼 인근으로 안내한다.", "address_precision": "도로 일대", "note": "주거지 계단이다. 정확한 촬영 지점의 좌표는 아직 확보하지 않았다."
+  },
+  {
+    "key": "parasite_tunnel", "name": "자하문터널 계단", "region": "서울특별시", "address": "서울특별시 종로구 자하문로 219",
+    "works": ["기생충"], "publisher": "서울특별시", "title": "영화 기생충 여기서 찍었다! 서울 촬영지 공개",
+    "url": "https://mediahub.seoul.go.kr/news/article/newsArticlePrintPopup.do?articleNo=1268956",
+    "summary": "서울시는 자하문터널 계단을 기생충의 주요 촬영지로 소개하며 자하문로 219를 안내 주소로 제시한다.", "note": "안내 주소와 실제 계단 촬영 지점은 구분해야 한다."
+  },
+  {
+    "key": "parasite_pizza", "name": "스카이피자", "region": "서울특별시", "address": "서울특별시 동작구 노량진로6길 86",
+    "works": ["기생충"], "publisher": "서울특별시", "title": "영화 기생충 여기서 찍었다! 서울 촬영지 공개",
+    "url": "https://mediahub.seoul.go.kr/news/article/newsArticlePrintPopup.do?articleNo=1268956",
+    "summary": "서울시의 기생충 촬영지 안내는 스카이피자를 노량진로6길 86에 있는 영화 관련 장소로 소개한다.", "note": "현재 영업 여부와 운영시간은 확인하지 않았다."
+  },
+  {
+    "key": "acc", "name": "국립아시아문화전당 지하 복도", "region": "광주 지역", "address": "동구 문화전당로 38, 국립아시아문화전당 지하 2층",
+    "works": ["파묘"], "publisher": "국립아시아문화전당", "title": "천만 영화 파묘 속 ACC?",
+    "url": "https://www.acc.go.kr/main/board/board.do?PID=0703&action=Read&boardID=REFERECEROOM&category=&idx=1317",
+    "summary": "국립아시아문화전당 보도자료는 문화창조원과 문화정보원을 연결하는 지하 2층 복도를 파묘의 미국 병원으로 꾸며 촬영했다고 밝힌다.", "location_type": "실내 촬영지", "note": "영화 속 미국 병원과 실제 광주의 촬영 장소를 구별한다. 촬영 지점의 현재 출입 가능 여부는 미확인."
+  },
+  {
+    "key": "hannam", "name": "한남대학교", "region": "대전광역시", "address": "대전광역시 대덕구 한남로 70",
+    "works": ["서울의 봄"], "publisher": "한남대학교", "title": "2024 HNU News Spring - 서울의 봄 촬영 캠퍼스",
+    "url": "https://www.hannam.ac.kr/kor/about/2024HNU_News_Spring.pdf",
+    "additional_urls": ["https://www.hnu.ac.kr/kor/about/about_11_1.html"],
+    "summary": "한남대학교의 2024년 봄 소식지는 캠퍼스가 서울의 봄 촬영 장소로 사용됐고 촬영과 관련한 포토존을 설치했다고 안내한다.", "note": "대학교 안내 주소이며 건물 내부 관람 가능 여부는 별도 확인 필요."
+  }
+  ,{
+    "key": "samyang", "match_row": "12803", "name": "삼양라운드힐(대관령 삼양목장)",
+    "works": ["신과함께-인과 연"], "publisher": "삼양라운드힐 운영사", "title": "미디어 촬영 로케이션 - 신과함께2 인과 연",
+    "url": "https://www.samyangfarm.co.kr/farm/media",
+    "summary": "삼양라운드힐 운영사의 미디어 로케이션 페이지는 신과함께2 인과 연을 촬영 작품으로 소개한다.", "note": "촬영 작품은 운영사 소개 기준이며 구체적 촬영 구역과 현재 접근 가능 여부는 미확인."
+  },
+  {
+    "key": "lotte_tower", "name": "롯데월드타워", "region": "서울특별시", "address": "서울특별시 송파구 올림픽로 300",
+    "works": ["신과함께-죄와 벌"], "publisher": "서울특별시 소울스팟", "title": "K콘텐츠 촬영지 소울스팟 - 신과함께 죄와 벌",
+    "url": "https://soulspot.co.kr/", "additional_urls": ["https://korean.visitseoul.net/Tourist-Attractions-list1/%EB%A1%AF%EB%8D%B0%EC%9B%94%EB%93%9C%ED%83%80%EC%9B%8C_%EB%A1%AF%EB%8D%B0%EC%9B%94%EB%93%9C%EB%AA%B0/KOP015859"],
+    "summary": "서울시 소울스팟은 K-Movie 항목에서 신과함께-죄와 벌과 롯데월드타워를 연결해 소개한다.", "note": "소개 목록에서의 작품·장소 관계를 확인했다. 상세 페이지는 접근 오류가 있어 촬영 방식·실제 스턴트 지점·CG 여부는 확정하지 않았다."
+  },
+  {
+    "key": "gwangju_cgi", "name": "광주CGI센터", "region": "광주 지역", "address": "광주 지역 광주CGI센터 (상세 주소 재확인 필요)",
+    "works": ["범죄도시2"], "publisher": "광주정보문화산업진흥원", "title": "광주CGI센터 촬영 범죄도시2 천만 관객 축하합니다",
+    "url": "https://www.gicon.or.kr/gallery.es?act=view&bid=0001&list_no=803&mid=a10302000000",
+    "summary": "광주정보문화산업진흥원은 범죄도시2가 광주CGI센터에서 촬영됐음을 기관 홍보자료로 안내한다.", "location_type": "촬영 제작 시설", "address_precision": "시설명", "note": "일반 관광지가 아닌 제작 시설이다. 방문·견학 가능 여부를 확인하지 않았다."
+  },
+  {
+    "key": "silmido", "name": "실미도 촬영지(실미해수욕장 진입)", "region": "인천광역시", "address": "인천광역시 영종구 큰무리로 99(해변 진입 안내 주소)",
+    "works": ["실미도"], "publisher": "바다온 바다여행", "title": "실미해수욕장 여행지 정보",
+    "url": "https://badaon.or.kr/seantour_map/travel/destination/detail.do?destId=FCID111131",
+    "summary": "바다온은 실미도 일대를 영화 실미도의 촬영지로 안내한다. 안내문에 따르면 당시 세트는 철거됐으며 섬 진입은 물때에 영향을 받는다.", "location_type": "야외 촬영지·세트 철거", "note": "주소는 해수욕장 진입 주소이며 섬의 실제 촬영 지점 좌표가 아니다. 물때와 통행 가능 여부를 방문 전에 확인해야 한다."
+  },
+  {
+    "key": "hwaseong", "name": "수원 화성행궁", "region": "경기도", "address": "경기도 수원시 팔달구 화성행궁 일대",
+    "works": ["왕의 남자"], "publisher": "수원시 e수원뉴스", "title": "공감칼럼 - 한 번 다녀왔습니다, 어딜 다녀왔다고",
+    "url": "https://news.suwon.go.kr/_Ext/news/viewPrint.php?reqIdx=202006080901228296",
+    "additional_urls": ["https://m.seoul.co.kr/news/Seoul_In/seoul_metro/2006/03/03/20060303211002"],
+    "summary": "수원시의 영화 관련 칼럼은 왕의 남자에 수원화성이 등장한다고 설명한다. 서울신문의 현장 기사는 화성행궁을 영화 촬영 장소로 소개한다.", "address_precision": "행궁 일대", "note": "공식 지역 칼럼과 당시 보도를 함께 확인했다. 행궁 내부의 정확한 장면별 지점은 추가 확인 필요."
+  }
+]

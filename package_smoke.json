@@ -1,0 +1,8 @@
+{
+  "zip_integrity": "PASS",
+  "python_compile": "PASS",
+  "extracted_frontend_assets": "PASS",
+  "extracted_http_catalog_status": "PASS",
+  "real_gms_used": false,
+  "dependency_environment": "현재 설치된 requirements 환경 재사용; 완전히 새 PC 설치 검증은 아님"
+}

@@ -1,0 +1,150 @@
+{
+  "real_gms_used": false,
+  "cases": [
+    {
+      "place": "서연의 집",
+      "question": "영화 촬영 당시의 집과 지금 방문하는 카페 건물은 같은 건물인가요?",
+      "references": [
+        {
+          "title": "서연의 집",
+          "url": "https://www.visitjeju.net/kr/detail/view?contentsid=CNTS_000000000018357&menuId=DOM_000001918001000000",
+          "text": "장소: 서연의 집\n지역: 제주특별자치도\n주소: 제주특별자치도 서귀포시 남원읍 위미해안로 86\n관련 작품: 건축학개론\n장소 유형: 재건축한 영화 관련 공간\n장면 설명: 엄태웅이 한가인에게 지어준 집 \n검증 상태: 일부 또는 전체 작품의 촬영 관계 문서 확인\n현재 운영시간과 출입 가능 여부는 별도 확인이 필요합니다."
+        },
+        {
+          "title": "카페서연의집 건축학개론촬영지",
+          "url": "https://www.visitjeju.net/kr/detail/view?contentsid=CNTS_000000000018357&menuId=DOM_000001918001000000",
+          "text": "제주관광공사는 카페 서연의집을 건축학개론의 제주 촬영 세트를 바탕으로 다시 지은 공간으로 설명한다. 촬영 당시의 임시 세트와 현재 카페 건물은 구분해야 한다."
+        },
+        {
+          "title": "서연의 집 · 건축학개론 원문 장소설명",
+          "url": "https://www.data.go.kr/data/15111405/fileData.do",
+          "text": "엄태웅이 한가인에게 지어준 집"
+        }
+      ],
+      "baseline_answer": null,
+      "rag_answer": null,
+      "status": "GMS 제외: 답변 비교 미실행",
+      "human_review": {
+        "사실 정확성": null,
+        "근거 제시": null,
+        "모름 응답": null,
+        "검토자": null,
+        "메모": ""
+      }
+    },
+    {
+      "place": "초원사진관",
+      "question": "지금의 사진관은 영화 촬영 당시부터 그대로 보존된 시설인가요?",
+      "references": [
+        {
+          "title": "초원사진관",
+          "url": "https://www.gunsan.go.kr/tour/m2230",
+          "text": "장소: 초원사진관\n지역: 전북특별자치도\n주소: 전북특별자치도 군산시 구영2길 12-1\n관련 작품: 8월의 크리스마스\n장소 유형: 복원 촬영지\n장면 설명: \n검증 상태: 일부 또는 전체 작품의 촬영 관계 문서 확인\n현재 운영시간과 출입 가능 여부는 별도 확인이 필요합니다."
+        },
+        {
+          "title": "초원사진관 - 군산 문화관광",
+          "url": "https://www.gunsan.go.kr/tour/m2230",
+          "text": "군산시는 초원사진관을 영화 8월의 크리스마스의 촬영 장소로 소개한다. 촬영 뒤 철거된 사진관을 시에서 복원했다."
+        }
+      ],
+      "baseline_answer": null,
+      "rag_answer": null,
+      "status": "GMS 제외: 답변 비교 미실행",
+      "human_review": {
+        "사실 정확성": null,
+        "근거 제시": null,
+        "모름 응답": null,
+        "검토자": null,
+        "메모": ""
+      }
+    },
+    {
+      "place": "자하문터널 계단",
+      "question": "어떤 작품의 어떤 장면과 관련된 장소인가요? 자료로 확인되는 범위만 알려주세요.",
+      "references": [
+        {
+          "title": "자하문터널 계단",
+          "url": "https://mediahub.seoul.go.kr/news/article/newsArticlePrintPopup.do?articleNo=1268956",
+          "text": "장소: 자하문터널 계단\n지역: 서울특별시\n주소: 서울특별시 종로구 자하문로 219\n관련 작품: 기생충\n장소 유형: \n장면 설명: \n검증 상태: 일부 또는 전체 작품의 촬영 관계 문서 확인\n현재 운영시간과 출입 가능 여부는 별도 확인이 필요합니다."
+        },
+        {
+          "title": "영화 기생충 여기서 찍었다! 서울 촬영지 공개",
+          "url": "https://mediahub.seoul.go.kr/news/article/newsArticlePrintPopup.do?articleNo=1268956",
+          "text": "서울시는 자하문터널 계단을 기생충의 주요 촬영지로 소개하며 자하문로 219를 안내 주소로 제시한다."
+        }
+      ],
+      "baseline_answer": null,
+      "rag_answer": null,
+      "status": "GMS 제외: 답변 비교 미실행",
+      "human_review": {
+        "사실 정확성": null,
+        "근거 제시": null,
+        "모름 응답": null,
+        "검토자": null,
+        "메모": ""
+      }
+    },
+    {
+      "place": "리틀 포레스트 혜원의 집",
+      "question": "어떤 작품과 관련된 집이고, 실제 방문 주소는 어디인가요?",
+      "references": [
+        {
+          "title": "리틀 포레스트 혜원의 집",
+          "url": "https://gunwi.go.kr/tour/page.do?code_uid=137&mnu_uid=816",
+          "text": "장소: 리틀 포레스트 혜원의 집\n지역: 대구광역시\n주소: 대구광역시 군위군 우보면 미성5길 58-1\n관련 작품: 리틀 포레스트\n장소 유형: \n장면 설명: 영화 리틀 포레스트에 나오는 혜원의 집 촬영지 \n검증 상태: 일부 또는 전체 작품의 촬영 관계 문서 확인\n현재 운영시간과 출입 가능 여부는 별도 확인이 필요합니다."
+        },
+        {
+          "title": "리틀 포레스트 혜원의 집 · 리틀 포레스트 원문 장소설명",
+          "url": "https://www.data.go.kr/data/15111405/fileData.do",
+          "text": "영화 리틀 포레스트에 나오는 혜원의 집 촬영지"
+        },
+        {
+          "title": "군위여행 2코스 - 리틀포레스트 촬영지",
+          "url": "https://gunwi.go.kr/tour/page.do?code_uid=137&mnu_uid=816",
+          "text": "군위군 관광 코스에 리틀포레스트 촬영지가 포함되어 있으며 우보면 미성5길 58-1로 안내된다. 군위군 관광 홈페이지는 이 장소를 영화의 배경을 촬영한 곳으로 소개한다."
+        }
+      ],
+      "baseline_answer": null,
+      "rag_answer": null,
+      "status": "GMS 제외: 답변 비교 미실행",
+      "human_review": {
+        "사실 정확성": null,
+        "근거 제시": null,
+        "모름 응답": null,
+        "검토자": null,
+        "메모": ""
+      }
+    },
+    {
+      "place": "합천 영상 테마파크",
+      "question": "이 장소의 내일 입장료와 운영시간을 지금 자료만으로 확정할 수 있나요?",
+      "references": [
+        {
+          "title": "합천 영상 테마파크",
+          "url": "https://korean.visitkorea.or.kr/detail/rem_detail.do?cotid=79c8f7fc-94c3-4772-be1f-51f140744afb",
+          "text": "장소: 합천 영상 테마파크\n지역: 경상남도\n주소: 경상남도 합천군 용주면 합천호수로 757\n관련 작품: 덕혜옹주, 써니, 암살, 태극기 휘날리며, 택시운전사, 마이웨이, 모던보이\n장소 유형: 오픈 세트장\n장면 설명: 덕혜옹주에서 일본 거리를 촬영한 세트장 영화 속 길거리 등장 장면의 배경 암살의 다양한 장면을 촬영한 영상 테마파크 영화 태극기 휘날리며 전투 세트장 서울에서 집회 때문에 길이 막히는 장면     \n검증 상태: 일부 또는 전체 작품의 촬영 관계 문서 확인\n현재 운영시간과 출입 가능 여부는 별도 확인이 필요합니다."
+        },
+        {
+          "title": "합천 영상 테마파크 · 써니 원문 장소설명",
+          "url": "https://www.data.go.kr/data/15111405/fileData.do",
+          "text": "영화 속 길거리 등장 장면의 배경"
+        },
+        {
+          "title": "합천 영상 테마파크 · 덕혜옹주 원문 장소설명",
+          "url": "https://www.data.go.kr/data/15111405/fileData.do",
+          "text": "덕혜옹주에서 일본 거리를 촬영한 세트장"
+        }
+      ],
+      "baseline_answer": null,
+      "rag_answer": null,
+      "status": "GMS 제외: 답변 비교 미실행",
+      "human_review": {
+        "사실 정확성": null,
+        "근거 제시": null,
+        "모름 응답": null,
+        "검토자": null,
+        "메모": ""
+      }
+    }
+  ]
+}

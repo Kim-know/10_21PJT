@@ -1,0 +1,10 @@
+.env
+.venv/
+__pycache__/
+.streamlit/secrets.toml
+.cache/
+.models/
+.vectors/
+data/collected/
+data/confirmed_locations.sqlite3*
+.tmp/

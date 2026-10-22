@@ -1,0 +1,33 @@
+{
+  "date": "2026-10-21",
+  "real_gms_used": false,
+  "desktop_cards": [
+    {
+      "width": 540,
+      "height": 590.75
+    },
+    {
+      "width": 540,
+      "height": 590.75
+    }
+  ],
+  "mobile": {
+    "viewport_width": 375,
+    "scroll_width": 375,
+    "stacked": true
+  },
+  "checks": [
+    "library counts 266/250/292",
+    "cluster counts visible",
+    "zoom shows individual markers",
+    "clicked Ojukheon marker updates title/address/works",
+    "YouTube channel field visible",
+    "missing screenshot notice",
+    "real clipboard PNG preview",
+    "missing key HTTP 503 notice"
+  ],
+  "screenshots": [
+    "independent_library.png",
+    "independent_mobile.png"
+  ]
+}

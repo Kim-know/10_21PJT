@@ -1,0 +1,15 @@
+{
+  "metadata": 266,
+  "places_with_documents": 266,
+  "source_documents": 292,
+  "index_first": {
+    "metadata": 266,
+    "documents": 292
+  },
+  "index_second": {
+    "metadata": 266,
+    "documents": 292
+  },
+  "duplicate_growth": false,
+  "real_gms_tested": false
+}

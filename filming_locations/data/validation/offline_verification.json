@@ -1,0 +1,248 @@
+{
+  "catalog_places": 266,
+  "locations_with_documents": 266,
+  "index_counts": {
+    "metadata": 266,
+    "documents": 292
+  },
+  "query": "이 장소에서 어떤 영화의 장면을 촬영했나요?",
+  "place": "합천 영상 테마파크",
+  "retrieval_comparison": [
+    {
+      "mode": "similarity",
+      "top_k": 1,
+      "seconds": 0.7546,
+      "item_id": "kcisa-3068",
+      "titles": [
+        "합천 영상 테마파크"
+      ],
+      "source_types": [
+        "항목 메타데이터"
+      ]
+    },
+    {
+      "mode": "similarity",
+      "top_k": 3,
+      "seconds": 0.8953,
+      "item_id": "kcisa-3068",
+      "titles": [
+        "합천 영상 테마파크",
+        "합천 영상 테마파크 · 암살 원문 장소설명",
+        "시간을 거꾸로 달려볼까? 합천으로 떠나는 추억 여행"
+      ],
+      "source_types": [
+        "항목 메타데이터",
+        "공공데이터 원문(촬영 관계 재검증 전)",
+        "공식 문서의 사실 요약(조사자 작성)"
+      ]
+    },
+    {
+      "mode": "similarity",
+      "top_k": 5,
+      "seconds": 0.0091,
+      "item_id": "kcisa-3068",
+      "titles": [
+        "합천 영상 테마파크",
+        "합천 영상 테마파크 · 암살 원문 장소설명",
+        "시간을 거꾸로 달려볼까? 합천으로 떠나는 추억 여행",
+        "합천 영상 테마파크 · 덕혜옹주 원문 장소설명",
+        "합천 영상 테마파크 · 써니 원문 장소설명"
+      ],
+      "source_types": [
+        "항목 메타데이터",
+        "공공데이터 원문(촬영 관계 재검증 전)",
+        "공식 문서의 사실 요약(조사자 작성)",
+        "공공데이터 원문(촬영 관계 재검증 전)",
+        "공공데이터 원문(촬영 관계 재검증 전)"
+      ]
+    },
+    {
+      "mode": "mmr",
+      "top_k": 1,
+      "seconds": 0.0018,
+      "item_id": "kcisa-3068",
+      "titles": [
+        "합천 영상 테마파크"
+      ],
+      "source_types": [
+        "항목 메타데이터"
+      ]
+    },
+    {
+      "mode": "mmr",
+      "top_k": 3,
+      "seconds": 0.009,
+      "item_id": "kcisa-3068",
+      "titles": [
+        "합천 영상 테마파크",
+        "합천 영상 테마파크 · 암살 원문 장소설명",
+        "합천 영상 테마파크 · 써니 원문 장소설명"
+      ],
+      "source_types": [
+        "항목 메타데이터",
+        "공공데이터 원문(촬영 관계 재검증 전)",
+        "공공데이터 원문(촬영 관계 재검증 전)"
+      ]
+    },
+    {
+      "mode": "mmr",
+      "top_k": 5,
+      "seconds": 0.0089,
+      "item_id": "kcisa-3068",
+      "titles": [
+        "합천 영상 테마파크",
+        "합천 영상 테마파크 · 암살 원문 장소설명",
+        "합천 영상 테마파크 · 써니 원문 장소설명",
+        "시간을 거꾸로 달려볼까? 합천으로 떠나는 추억 여행",
+        "합천 영상 테마파크 · 덕혜옹주 원문 장소설명"
+      ],
+      "source_types": [
+        "항목 메타데이터",
+        "공공데이터 원문(촬영 관계 재검증 전)",
+        "공공데이터 원문(촬영 관계 재검증 전)",
+        "공식 문서의 사실 요약(조사자 작성)",
+        "공공데이터 원문(촬영 관계 재검증 전)"
+      ]
+    }
+  ],
+  "chunk_comparison": [
+    {
+      "chunk_size": 300,
+      "overlap": 50,
+      "actual_corpus_chunks": 292,
+      "synthetic_fixture_chunks": 10
+    },
+    {
+      "chunk_size": 700,
+      "overlap": 100,
+      "actual_corpus_chunks": 292,
+      "synthetic_fixture_chunks": 4
+    }
+  ],
+  "sample_metadata": "장소: 합천 영상 테마파크\n지역: 경상남도\n주소: 경상남도 합천군 용주면 합천호수로 757\n관련 작품: 덕혜옹주, 써니, 암살, 태극기 휘날리며, 택시운전사, 마이웨이, 모던보이\n장소 유형: 오픈 세트장\n장면 설명: 덕혜옹주에서 일본 거리를 촬영한 세트장 영화 속 길거리 등장 장면의 배경 암살의 다양한 장면을 촬영한 영상 테마파크 영화 태극기 휘날리며 전투 세트장 서울에서 집회 때문에 길이 막히는 장면     \n검증 상태: 일부 또는 전체 작품의 촬영 관계 문서 확인\n현재 운영시간과 출입 가능 여부는 별도 확인이 필요합니다.",
+  "gms_key_configured": false,
+  "live_gms_tested": false,
+  "response_quality": "미확인",
+  "licenses": [
+    {
+      "url": "https://www.samyangfarm.co.kr/farm/media",
+      "source_type": "공식 문서의 사실 요약(조사자 작성)",
+      "documents": 1,
+      "condition": "개별 원문 이용 조건 확인 필요"
+    },
+    {
+      "url": "https://www.data.go.kr/data/15111405/fileData.do",
+      "source_type": "공공데이터 원문(촬영 관계 재검증 전)",
+      "documents": 269,
+      "condition": "공공데이터포털 표기: 이용허락범위 제한 없음"
+    },
+    {
+      "url": "https://news.suwon.go.kr/_Ext/news/viewPrint.php?reqIdx=202006080901228296",
+      "source_type": "공식 문서의 사실 요약(조사자 작성)",
+      "documents": 1,
+      "condition": "개별 원문 이용 조건 확인 필요"
+    },
+    {
+      "url": "https://korean.visitkorea.or.kr/detail/rem_detail.do?cotid=79c8f7fc-94c3-4772-be1f-51f140744afb",
+      "source_type": "공식 문서의 사실 요약(조사자 작성)",
+      "documents": 1,
+      "condition": "개별 원문 이용 조건 확인 필요"
+    },
+    {
+      "url": "https://www.gicon.or.kr/gallery.es?act=view&bid=0001&list_no=803&mid=a10302000000",
+      "source_type": "공식 문서의 사실 요약(조사자 작성)",
+      "documents": 1,
+      "condition": "개별 원문 이용 조건 확인 필요"
+    },
+    {
+      "url": "https://www.acc.go.kr/main/board/board.do?PID=0703&action=Read&boardID=REFERECEROOM&category=&idx=1317",
+      "source_type": "공식 문서의 사실 요약(조사자 작성)",
+      "documents": 1,
+      "condition": "개별 원문 이용 조건 확인 필요"
+    },
+    {
+      "url": "https://www.hannam.ac.kr/kor/about/2024HNU_News_Spring.pdf",
+      "source_type": "공식 문서의 사실 요약(조사자 작성)",
+      "documents": 1,
+      "condition": "개별 원문 이용 조건 확인 필요"
+    },
+    {
+      "url": "https://www.busan.go.kr/news/specnews/view?dataNo=46532&gugun=Prev",
+      "source_type": "공식 문서의 사실 요약(조사자 작성)",
+      "documents": 1,
+      "condition": "개별 원문 이용 조건 확인 필요"
+    },
+    {
+      "url": "https://korean.visitkorea.or.kr/detail/rem_detail.do?cotid=f9aad6dd-ce30-456e-bd3e-4bf00ef5c985",
+      "source_type": "공식 문서의 사실 요약(조사자 작성)",
+      "documents": 2,
+      "condition": "개별 원문 이용 조건 확인 필요"
+    },
+    {
+      "url": "https://www.busan.go.kr/news/totalnews01/view?dataNo=47149&gugun=Prev",
+      "source_type": "공식 문서의 사실 요약(조사자 작성)",
+      "documents": 1,
+      "condition": "개별 원문 이용 조건 확인 필요"
+    },
+    {
+      "url": "https://www.mcst.go.kr/kor/s_culture/tour/tourView.jsp?pDetailSeq=324",
+      "source_type": "공식 문서의 사실 요약(조사자 작성)",
+      "documents": 1,
+      "condition": "개별 원문 이용 조건 확인 필요"
+    },
+    {
+      "url": "https://mediahub.seoul.go.kr/news/article/newsArticlePrintPopup.do?articleNo=1268956",
+      "source_type": "공식 문서의 사실 요약(조사자 작성)",
+      "documents": 4,
+      "condition": "개별 원문 이용 조건 확인 필요"
+    },
+    {
+      "url": "https://soulspot.co.kr/",
+      "source_type": "공식 문서의 사실 요약(조사자 작성)",
+      "documents": 1,
+      "condition": "개별 원문 이용 조건 확인 필요"
+    },
+    {
+      "url": "https://hangang.seoul.go.kr/www/bbsPost/38/456/detail.do?mid=571",
+      "source_type": "공식 문서의 사실 요약(조사자 작성)",
+      "documents": 1,
+      "condition": "개별 원문 이용 조건 확인 필요"
+    },
+    {
+      "url": "https://badaon.or.kr/seantour_map/travel/destination/detail.do?destId=FCID111131",
+      "source_type": "공식 문서의 사실 요약(조사자 작성)",
+      "documents": 1,
+      "condition": "개별 원문 이용 조건 확인 필요"
+    },
+    {
+      "url": "https://www.kric.go.kr/jsp/board/portal/sub05/res/themeEssayDetail.jsp?board_seq=2764",
+      "source_type": "공식 문서의 사실 요약(조사자 작성)",
+      "documents": 1,
+      "condition": "개별 원문 이용 조건 확인 필요"
+    },
+    {
+      "url": "https://gunwi.go.kr/tour/page.do?code_uid=137&mnu_uid=816",
+      "source_type": "공식 문서의 사실 요약(조사자 작성)",
+      "documents": 1,
+      "condition": "개별 원문 이용 조건 확인 필요"
+    },
+    {
+      "url": "https://www.busan.go.kr/news/totalnews01/view?dataNo=57227&gugun=Prev",
+      "source_type": "공식 문서의 사실 요약(조사자 작성)",
+      "documents": 1,
+      "condition": "개별 원문 이용 조건 확인 필요"
+    },
+    {
+      "url": "https://www.gunsan.go.kr/tour/m2230",
+      "source_type": "공식 문서의 사실 요약(조사자 작성)",
+      "documents": 1,
+      "condition": "개별 원문 이용 조건 확인 필요"
+    },
+    {
+      "url": "https://www.visitjeju.net/kr/detail/view?contentsid=CNTS_000000000018357&menuId=DOM_000001918001000000",
+      "source_type": "공식 문서의 사실 요약(조사자 작성)",
+      "documents": 1,
+      "condition": "개별 원문 이용 조건 확인 필요"
+    }
+  ]
+}

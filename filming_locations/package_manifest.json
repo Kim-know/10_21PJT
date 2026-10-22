@@ -1,0 +1,414 @@
+{
+  "kind": "검토용 패키지 / 최종 제출 승인 아님",
+  "secret_pattern_scan": "PASS (알려진 패턴만 검사)",
+  "excluded": [
+    "*.sqlite3",
+    ".cache",
+    ".env",
+    ".git",
+    ".models",
+    ".tmp",
+    ".vectors",
+    ".venv",
+    "__pycache__",
+    "collected",
+    "output",
+    "reference",
+    "secrets.toml",
+    "venv"
+  ],
+  "files": [
+    {
+      "path": ".env.example",
+      "sha256": "14bf648576b7f072310992083ab5a14020ad439b828918b313b8fbff643152f6"
+    },
+    {
+      "path": ".gitignore",
+      "sha256": "51149e5092111ee4b05bb98227ee16a6a159849503afc071c11f15aa30f3a86c"
+    },
+    {
+      "path": "api.py",
+      "sha256": "850982038fb809f3fbae4189030c93599d5de5ad75bf12f4971609786b209f74"
+    },
+    {
+      "path": "API_CONTRACT.md",
+      "sha256": "b60d0b032d0be9ddcb488685c60e6547c26613591af3b72deb8516bc9025448d"
+    },
+    {
+      "path": "app.py",
+      "sha256": "8d8f84209d614134df77567084c36bb7c98556f448035ec2fa8270af5df65cf8"
+    },
+    {
+      "path": "archive.py",
+      "sha256": "6de52a9e5c7436507409bac4e25c2004bba5702e46e3f828e1d97c2784ae72ae"
+    },
+    {
+      "path": "check_api.py",
+      "sha256": "18f445c6d41329c74e87b761cf142ababb51baa046b0372353dc746cc7edc66c"
+    },
+    {
+      "path": "check_app.py",
+      "sha256": "35e23af1434639f7abc2a60ad26c2df8c1eb43a875a76dbd86e69787d7acbb4e"
+    },
+    {
+      "path": "check_confirmed.py",
+      "sha256": "14a1948ee165a994f8872cfa4b3264ce229515ebb754b6b15e9853ae935394fd"
+    },
+    {
+      "path": "check_grounding.py",
+      "sha256": "9aa159cc16f9a4f655675e7f4c752ed59dd5d89d52ce72ceaa13a3aa44c87750"
+    },
+    {
+      "path": "check_rag.py",
+      "sha256": "2db1dfeca9cab78dd7a32953bf6e3a7bcedebe579722771441bcabad8adaeb5c"
+    },
+    {
+      "path": "check_savings.py",
+      "sha256": "0d93dd48008d08cf68a3ebcd142a2fbbdf2e2ef08f0c81ca4745206bc2fbba4c"
+    },
+    {
+      "path": "check_scene.py",
+      "sha256": "34e96c6e23ff9ac24beae7df435295e5a30610f6b6a73ee22e50efb9f9727929"
+    },
+    {
+      "path": "check_source_policy.py",
+      "sha256": "09f2ef6efcfb89e01e7744d440e89945ab1c7f99c055b509f7be8bd3ba5a8b7a"
+    },
+    {
+      "path": "data/locations.json",
+      "sha256": "57b6c9b5c2c13bd78256350b39a71351d677fb38aedd16f3eb5b2234a49c9fcb"
+    },
+    {
+      "path": "data/research/cafe_font_preview.png",
+      "sha256": "ffa772d148f7da3dd56fdf5c36610256a3927b71a3d0f14eedd9db41d68ae3eb"
+    },
+    {
+      "path": "data/research/clipboard_preview.png",
+      "sha256": "759e582a9a6ddd520afdeb217efb53c253662e54b68647fcc13608f0cea2c6b5"
+    },
+    {
+      "path": "data/research/collection_report.md",
+      "sha256": "935e7fbdc2f1b2a38815a0a2432c6e6ff2cb58c29ba9350ab34052e36d2beabe"
+    },
+    {
+      "path": "data/research/curated_sources.json",
+      "sha256": "acdbda3e288a71af4ab9f71346be0bbb90f56d810a08ddac4247fd6dcd4ca2e3"
+    },
+    {
+      "path": "data/research/equal_input_cards.png",
+      "sha256": "3c453ca96032171b20e5fcbe9bcb26cb8710408f15d8f02f287dcd4672e3817d"
+    },
+    {
+      "path": "data/research/examples_preview.png",
+      "sha256": "f4e15e12f795ea8463dad293107fe43dd780c22b84039bf3f1994fe7ce098edc"
+    },
+    {
+      "path": "data/research/kcisa_filming_20221125.csv",
+      "sha256": "1eba00010a3274e58a302d3dfdf0b7e56b4d7af3fe03680edfeae9866845ce3c"
+    },
+    {
+      "path": "data/research/manifest.json",
+      "sha256": "a50bbd3659fba9bdc2ba841cd7bf0178ed8a132222832364991074c41174e8a1"
+    },
+    {
+      "path": "data/research/map_clusters.png",
+      "sha256": "782cdb86fe5433fadcef142f54cc43ddf421a73e12ad2ce77ebc7c5e7c9cf072"
+    },
+    {
+      "path": "data/research/map_marker_fixed.png",
+      "sha256": "3f0f95b5d38ebc0a8efb9910c70d837be8c58dd5ff0db57fe607ad748ce1c9d4"
+    },
+    {
+      "path": "data/research/map_selection_synced.png",
+      "sha256": "3b9bafdae1353f787e271393890edc811145446abe5093c4e2ff1f083c8c71a7"
+    },
+    {
+      "path": "data/research/media_selection_preview.png",
+      "sha256": "4066fc3f689dbd1c8de21ca092ebb0a847903dbbb7e8eab8131e93cf71a60c87"
+    },
+    {
+      "path": "data/research/movie_rows_original.json",
+      "sha256": "98a879da12dbe8c811884c1e6ab5746aad179f73432da05866f0bde6d2f30aab"
+    },
+    {
+      "path": "data/research/pending_leads.json",
+      "sha256": "7e5a457527793d39ad037529c6411615d7016009a2383ae0be8b819e8bd94201"
+    },
+    {
+      "path": "data/research/place_review_preview.png",
+      "sha256": "87efba358a4f1764b20a7cd827386a254fc73e6ed456c7615f1d8d161cf20e54"
+    },
+    {
+      "path": "data/research/priority_coverage.json",
+      "sha256": "4339a8f474b7507bb2d1ffbd9c9604ee8cefe2364da9292e22a3b37d05c59634"
+    },
+    {
+      "path": "data/research/quarantine.json",
+      "sha256": "5baa157a245488d1dea51834b0c0ad5ce34a469df36a34d1319f9aa304ae483f"
+    },
+    {
+      "path": "data/research/rag_archive_preview.png",
+      "sha256": "b2ec3b1eaf44a7e5ce6b46673a3c3f0d6e60fd8ccb3fa5a638952fe46f2f3de6"
+    },
+    {
+      "path": "data/research/rag_validation.json",
+      "sha256": "004487ca920308bf7c46841510882e6914c0d1f24cb882a0bc7318857db5acd0"
+    },
+    {
+      "path": "data/research/README.md",
+      "sha256": "92d1ba55bbe258dd59d196f3ccab5052449e4325d8c1550e95976b79f81fe796"
+    },
+    {
+      "path": "data/research/responsive_stacked_preview.png",
+      "sha256": "79f88664a630ddbb0c3932bdf574b6bbce4eede533151b3315354f7b99f8d87c"
+    },
+    {
+      "path": "data/research/scene_search_preview.png",
+      "sha256": "48d5e2c71b50a17fef0c9ae9016c52bb8bc35098206665de6a29d25edf47e012"
+    },
+    {
+      "path": "data/research/section_borders_preview.png",
+      "sha256": "4d70b8172384a50d5934f43f30db5e036ebe2333594462bda3b8ab8b5e1346ef"
+    },
+    {
+      "path": "data/validation/independent_desktop.png",
+      "sha256": "19b3c1a28457ecac76b76e9dc7242334669dcc1d5c78fb4f7e826accbdcf6a3c"
+    },
+    {
+      "path": "data/validation/independent_library.png",
+      "sha256": "e94dbd46fde80d560263c76e876476433c693814e7f0e0511a25a4338a750993"
+    },
+    {
+      "path": "data/validation/independent_mobile.png",
+      "sha256": "b3423143a28cf921d7bcadf8b19e39dfcde0b9018733e160001e93b1aa3eca97"
+    },
+    {
+      "path": "data/validation/offline_verification.json",
+      "sha256": "04c81b2d661be130e684b493004d2659abb474a1f7c801f79fb5fbd71a592fe2"
+    },
+    {
+      "path": "data/validation/rag_graph.mmd",
+      "sha256": "84ee806bad932b9907178c9381450a7b4c5384876dd17ff748e9db974f92b5a3"
+    },
+    {
+      "path": "data/validation/rag_quality_comparison.json",
+      "sha256": "3ce34447180a7332bcdc3b474f4215c64da6688432f5f2b1b0f1053b875ef725"
+    },
+    {
+      "path": "data/validation/rag_quality_comparison.md",
+      "sha256": "af35de739c0f895802a65c92e43e0d806b5d8fd7053bc9d4f99c47319feb312c"
+    },
+    {
+      "path": "data/validation/retrieval_comparison.md",
+      "sha256": "17939c84ca3a50db599768bcf16112544b9e55c30400c20164c31b81932e37bb"
+    },
+    {
+      "path": "data/validation/test_results.json",
+      "sha256": "944d22371c72481c5b1efe64ab656fb493bc686d349741121162117b48587396"
+    },
+    {
+      "path": "data/validation/ui_verification.json",
+      "sha256": "a8b42eb7afdb1a19be4ae97e9e61638a32b4645ebe94a89b6991d5f79ac5adfa"
+    },
+    {
+      "path": "FINAL_CHECKLIST.md",
+      "sha256": "009c7d74a1f756ec41761a69d9d88e065455ac61c4982f7eaf8250cbbe6711ec"
+    },
+    {
+      "path": "frontend/app.js",
+      "sha256": "2cb81cd45cf4b8cdfa5bd84a824cefc8868bdbee46ec7caf0db0de73ade0224e"
+    },
+    {
+      "path": "frontend/index.html",
+      "sha256": "4f75763d70ed3800deb7401d71ec284079440198b6dd67bf9d8bd05ac0c7766b"
+    },
+    {
+      "path": "frontend/map.html",
+      "sha256": "5d1c84fa6c3cea3152808c456fe5dc1e9f9368dddfdcf6855f1d8821a089d19c"
+    },
+    {
+      "path": "frontend/style.css",
+      "sha256": "a09b6d56bec35793238bcb899fa8ce5963f1bca26cf28dd45d40bd92198cecdc"
+    },
+    {
+      "path": "IMPLEMENTATION_STATUS.md",
+      "sha256": "9a8845d11f83fbd6bf436a6973c7f1b0d91ce9f5982f97bdd8da919665cd57aa"
+    },
+    {
+      "path": "LICENSE_REVIEW.md",
+      "sha256": "ec94389255082dcea74e5fb5aafc3d63c9943b1feab3e6438f3078314ef1c456"
+    },
+    {
+      "path": "PEER_REVIEW.md",
+      "sha256": "d412b8c54b5ae559df8b619a5c4aead1c1abad24d6fdfa280877c92c5c1abec3"
+    },
+    {
+      "path": "PROJECT_OVERVIEW.md",
+      "sha256": "1488f690e8d55d18096f96598bcf24125743c7e56a3035f2bb83418a440865a1"
+    },
+    {
+      "path": "PROJECT_REQUIREMENTS.md",
+      "sha256": "e0e6e23f61b0dd880fb506084f265e1475f35a0283a16bf2d2cd9ed8b3bfc6a3"
+    },
+    {
+      "path": "RAG_DESIGN.md",
+      "sha256": "116525a04807d72247526541402c7778f68760a8ec428d1f1ac9c62d6a6d6f89"
+    },
+    {
+      "path": "README.md",
+      "sha256": "afb6c61b3d6781689f4aed8bdc3730f868ad8f9fb975dc846a1f39d4f22c8229"
+    },
+    {
+      "path": "requirements.txt",
+      "sha256": "f96898cc2dfd746e9bbb82b2aa84d68e8e1e3dcfa3d2f35ac7c505a6475b91d0"
+    },
+    {
+      "path": "REQUIREMENTS_CHECKLIST.md",
+      "sha256": "ffc42b7a4aedd9b7421bfaf72e3e607685ecdfaf452e80ed23efbddd12812245"
+    },
+    {
+      "path": "scripts/build_index.py",
+      "sha256": "3aa82446e7d15f89db4a27a1007ef7a99c07edb5f9911c80c496b96fb37bf55d"
+    },
+    {
+      "path": "scripts/compare_rag.py",
+      "sha256": "c220326ac59736d556731691078206b7ca0623b7edf075a8c5189cd8b4152482"
+    },
+    {
+      "path": "scripts/import_research.py",
+      "sha256": "4fee8daf270eeb70cc3423db9f7ab572afa4369fac6b592c3ed346599bf4d0db"
+    },
+    {
+      "path": "scripts/package_project.py",
+      "sha256": "6358fb9a27ef687661bfd6bf8c7e9a305bec0f45bfdcfa8a2a05e7854380aa75"
+    },
+    {
+      "path": "scripts/run_checks.py",
+      "sha256": "9b0a771e458c71c0fbb9791096ab07f2eaa191afd1a7ddb828f20b14edf4bb87"
+    },
+    {
+      "path": "scripts/smoke_package.py",
+      "sha256": "6058735ef9c727fd804644ddde624d434d959f23be342b9e10fb6b1bf514fb00"
+    },
+    {
+      "path": "scripts/verify_project.py",
+      "sha256": "c7f62f0584e93b05dffd51ffe4da6deb57ebb93820e732382b3fe6c9d2686e8d"
+    },
+    {
+      "path": "services/__init__.py",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "services/cache.py",
+      "sha256": "cc1ec5063881690e093721f68da21d43a727149aa2b31a15c239578d34b2f98b"
+    },
+    {
+      "path": "services/catalog.py",
+      "sha256": "1e7da29c627a16f7752989712e233b19c249c4848574be978afe1a1f618a9d81"
+    },
+    {
+      "path": "services/confirmed_places.py",
+      "sha256": "62cca44efac96bb928214442b832d42b651411a7d6fbed1b54e6976857293fb6"
+    },
+    {
+      "path": "services/geocoding.py",
+      "sha256": "52edf3be6e8e6512744ffcf57708ee11f003046495e86b37e6ec91324df1d397"
+    },
+    {
+      "path": "services/llm.py",
+      "sha256": "65734d2733cbe468cf40137c0fe9a7f8250d532a3eaff6aa826566a9c99866d2"
+    },
+    {
+      "path": "services/rag_graph.py",
+      "sha256": "dfd3b97c54b9094ff00a371a593e38d52e04730d96cef8c652a40bc7c36ba62c"
+    },
+    {
+      "path": "services/research.py",
+      "sha256": "f53758aca1a813da7a71ee5b001fb6353a2c5a759c1cb6679d79f60a85027870"
+    },
+    {
+      "path": "services/retrieval.py",
+      "sha256": "240d6f70411c393d749e842d7347866d8b5ff5c7ac1be0b11fbb66db5bd6a93d"
+    },
+    {
+      "path": "services/scene_finder.py",
+      "sha256": "d00204700143477f28104993b6fcb022027b0c397501a4e27b9ac4525a647071"
+    },
+    {
+      "path": "services/source_policy.py",
+      "sha256": "8d249286c0d5eadd6f6388a1d36a5d735033face7d4ec0165f837047f04c1e2a"
+    },
+    {
+      "path": "services/throttle.py",
+      "sha256": "21da0094699f0809a2efa6c837b76d0f5e13a87552d59cc0893435405c7753e5"
+    },
+    {
+      "path": "services/vector_store.py",
+      "sha256": "ac7c7150f24a8789f2e9c466e32bbea72e9f151323b626e2398d5d30c2850c67"
+    },
+    {
+      "path": "services/web_search.py",
+      "sha256": "dc2ecb4f7da75648d24202170ede9ff81d351753e706852fcc6049988da35e58"
+    },
+    {
+      "path": "services/wiki.py",
+      "sha256": "9c2524078d550d1e20a3e75facb971b6fc97a164b781deb24b8d63acd4e56fe0"
+    },
+    {
+      "path": "settings.py",
+      "sha256": "50cc13f564c8cab31357880ac8ea48c482a9caf3a56a1140e4f11c57bebd6d83"
+    },
+    {
+      "path": "THIRD_PARTY_LICENSES/Apache-2.0.txt",
+      "sha256": "3ddf9be5c28fe27dad143a5dc76eea25222ad1dd68934a047064e56ed2fa40c5"
+    },
+    {
+      "path": "THIRD_PARTY_LICENSES/Gowun-Dodum-OFL.txt",
+      "sha256": "cbf7f8340c19408d92af1c21e98a22085754fdf9f0677489ff140420d66cb082"
+    },
+    {
+      "path": "THIRD_PARTY_LICENSES/Leaflet-BSD-2-Clause.txt",
+      "sha256": "7083eaea9d234a83c5da7f07701b0eb986fbb437f678754e8fcd760c1ab4028c"
+    },
+    {
+      "path": "THIRD_PARTY_LICENSES/Leaflet-heat-BSD-2-Clause.txt",
+      "sha256": "8cb30cc0e02c07ee7125e7dbcaae0a7c126c246a6387a617a975ef308c5ef4e9"
+    },
+    {
+      "path": "THIRD_PARTY_LICENSES/Leaflet-markercluster-MIT.txt",
+      "sha256": "c14f7ab1a0cfd6bb5c686802a553b182d7fe4ff2f02592be9fadd1c50526b76e"
+    },
+    {
+      "path": "THIRD_PARTY_LICENSES/manifest.json",
+      "sha256": "eff8ab82f2c5a7ba464eaa3f8af328f633921f93197e31a66f022cab0182dd33"
+    },
+    {
+      "path": "ui/__init__.py",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "ui/clipboard_image.py",
+      "sha256": "c1316ac8a6de9e7ab34e38c19728291daa61e1a0aaa08e1819f14dde9d497043"
+    },
+    {
+      "path": "ui/examples.py",
+      "sha256": "e5b848324fb27a6352702e063e88b81d2bbf6d45d3b496a597d75e910eaf1256"
+    },
+    {
+      "path": "ui/location_map.py",
+      "sha256": "a04db2c25f8d9b2c247887d40c6470c7d3101f541531fea7bcc748805ffb7272"
+    },
+    {
+      "path": "ui/map_frontend/index.html",
+      "sha256": "54d613153198f243e0cc816f5d0b87c82ca12346b084b91494de582c71384a52"
+    },
+    {
+      "path": "ui/place_review.py",
+      "sha256": "1757cb838a426b5298ad53d03ae15c73a22d6b37fae66cf8c1ed82f8bab914a2"
+    },
+    {
+      "path": "ui/sources.py",
+      "sha256": "68814b5524ae96e245362911311c8d9f270abebb013c478ce77b09d0c808b3db"
+    }
+  ]
+}

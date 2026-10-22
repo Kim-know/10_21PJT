@@ -1,0 +1,27 @@
+[
+  {
+    "file": "Leaflet-BSD-2-Clause.txt",
+    "source": "https://unpkg.com/leaflet@1.9.4/LICENSE",
+    "status": "downloaded"
+  },
+  {
+    "file": "Leaflet-markercluster-MIT.txt",
+    "source": "https://unpkg.com/leaflet.markercluster@1.5.3/MIT-LICENCE.txt",
+    "status": "downloaded"
+  },
+  {
+    "file": "Leaflet-heat-BSD-2-Clause.txt",
+    "source": "https://unpkg.com/leaflet.heat@0.2.0/LICENSE",
+    "status": "downloaded"
+  },
+  {
+    "file": "Gowun-Dodum-OFL.txt",
+    "source": "https://raw.githubusercontent.com/google/fonts/main/ofl/gowundodum/OFL.txt",
+    "status": "downloaded"
+  },
+  {
+    "file": "Apache-2.0.txt",
+    "source": "https://www.apache.org/licenses/LICENSE-2.0.txt",
+    "status": "downloaded"
+  }
+]

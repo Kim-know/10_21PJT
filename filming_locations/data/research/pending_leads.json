@@ -1,0 +1,20 @@
+[
+  {
+    "work": "부산행", "candidates": ["부산역", "대전역", "천안아산역"],
+    "discovery_url": "https://www.realscene.site/ko/movie/train-to-busan",
+    "status": "일반 촬영지 안내에서 발견·개별 촬영 근거 미확인",
+    "next_check": "제작사·철도공사·영상위원회 자료로 실제 촬영 역과 극중 설정을 대조. 현재 서비스 장소로 등록하지 않음."
+  },
+  {
+    "work": "범죄도시3", "candidates": ["송도 센트럴파크호텔", "춘천경찰서", "김포 아라마리나"],
+    "discovery_url": "https://www.cinematheque.co.kr/cinema/20226411",
+    "status": "영화 촬영 지원 목록·일반 자료에서 발견·기관 근거 추가 확인 필요",
+    "next_check": "지원 기관 명단이 실제 장면의 촬영 장소인지 확인. 촬영 시설과 일반 관광지 구분."
+  },
+  {
+    "work": "범죄도시4", "candidates": ["한향림 도자미술관"],
+    "discovery_url": "https://knowhowlab.co.kr/범죄도시4-촬영지-줄거리-등장인물-총정/",
+    "status": "블로그성 안내에서 발견·미술관 또는 제작사 근거 미확인",
+    "next_check": "공식 미술관 촬영 안내 또는 제작사 자료 확인 전에는 실제 촬영지로 확정하지 않음."
+  }
+]

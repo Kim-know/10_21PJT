@@ -1,0 +1,27 @@
+{
+  "collected_at": "2026-10-21",
+  "provider": "한국문화정보원",
+  "source_url": "https://www.data.go.kr/data/15111405/fileData.do",
+  "download_url": "https://www.data.go.kr/cmm/cmm/fileDownload.do?atchFileId=FILE_000000003000299&fileDetailSn=1&insertDataPrcus=N",
+  "license": "공공데이터포털 표기: 이용허락범위 제한 없음, 무료",
+  "license_scope": "원본 CSV. 추가 조사한 웹 문서의 본문·사진에 일괄 적용되지 않음.",
+  "sha256": "1eba00010a3274e58a302d3dfdf0b7e56b4d7af3fe03680edfeae9866845ce3c",
+  "bytes": 4044781,
+  "raw_rows": 15034,
+  "media_types": {
+    "drama": 7339,
+    "movie": 273,
+    "show": 5460,
+    "artist": 1962
+  },
+  "movie_rows": 273,
+  "original_movies": 48,
+  "quarantined_rows": 4,
+  "catalog_locations": 266,
+  "catalog_movies": 69,
+  "separately_checked_locations": 23,
+  "separately_checked_relations": 32,
+  "locations_with_documents": 266,
+  "description_documents": 292,
+  "scope": "국내 영화 촬영 장소. 드라마·예능·가수 항목 제외. 세계 모든 영화 촬영지를 망라한 목록은 아님."
+}

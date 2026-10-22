@@ -1,0 +1,69 @@
+{
+  "real_gms_used": false,
+  "results": [
+    {
+      "check": "check_grounding.py",
+      "status": "PASS",
+      "exit_code": 0,
+      "seconds": 1.286,
+      "output": "PASS: context/citation alignment, invalid/missing citations blocked, refusal allowed, API failure propagation",
+      "diagnostics": ""
+    },
+    {
+      "check": "check_rag.py",
+      "status": "PASS",
+      "exit_code": 0,
+      "seconds": 3.228,
+      "output": "{\"test\": \"PASS\", \"index_twice\": {\"metadata\": 3, \"documents\": 10}, \"chunk_counts\": [5, 2], \"graph_nodes\": [\"__start__\", \"retrieve\", \"generate\"]}",
+      "diagnostics": ""
+    },
+    {
+      "check": "check_scene.py",
+      "status": "PASS",
+      "exit_code": 0,
+      "seconds": 2.153,
+      "output": "PASS: image validation, multimodal pipeline, external search, evidence/address guards, caching, main UI",
+      "diagnostics": "2026-10-21 16:28:21.631 WARNING streamlit.runtime.scriptrunner_utils.script_run_context: Thread 'MainThread': missing ScriptRunContext! This warning can be ignored when running in bare mode."
+    },
+    {
+      "check": "check_app.py",
+      "status": "PASS",
+      "exit_code": 0,
+      "seconds": 3.294,
+      "output": "PASS: catalog validation, citations, document loading, chat isolation, map sync, no-index notice, safe API failure, uncited-answer notice",
+      "diagnostics": "2026-10-21 16:28:23.752 WARNING streamlit.runtime.scriptrunner_utils.script_run_context: Thread 'MainThread': missing ScriptRunContext! This warning can be ignored when running in bare mode."
+    },
+    {
+      "check": "check_savings.py",
+      "status": "PASS",
+      "exit_code": 0,
+      "seconds": 1.304,
+      "output": "PASS: local retrieval, budgets, response/document caches, invalidation, daily cap, expiry",
+      "diagnostics": ""
+    },
+    {
+      "check": "check_confirmed.py",
+      "status": "PASS",
+      "exit_code": 0,
+      "seconds": 4.217,
+      "output": "PASS: explicit confirmation, coordinate approval/range, durable DB, dedup, real vector index/retrieval, review UI, archive link",
+      "diagnostics": "2026-10-21 16:28:28.675 WARNING streamlit.runtime.scriptrunner_utils.script_run_context: Thread 'MainThread': missing ScriptRunContext! This warning can be ignored when running in bare mode.\n2026-10-21 16:28:30.177 Thread 'MainThread': missing ScriptRunContext! This warning can be ignored when running in bare mode.\n2026-10-21 16:28:30.177 Thread 'MainThread': missing ScriptRunContext! This warning can be ignored when running in bare mode."
+    },
+    {
+      "check": "check_api.py",
+      "status": "PASS",
+      "exit_code": 0,
+      "seconds": 2.257,
+      "output": "PASS: frontend assets, API validation, key guard, origin/host guard, scene review token, explicit confirmation, DB dedup, safe errors",
+      "diagnostics": ""
+    },
+    {
+      "check": "check_source_policy.py",
+      "status": "PASS",
+      "exit_code": 0,
+      "seconds": 0.217,
+      "output": "PASS: robots deny/allow, crawl-delay, unavailable policy fail-closed",
+      "diagnostics": ""
+    }
+  ]
+}

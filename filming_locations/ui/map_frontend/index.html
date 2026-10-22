@@ -1,0 +1,65 @@
+<!doctype html><html lang="ko"><head><meta charset="utf-8"><meta name="referrer" content="strict-origin-when-cross-origin">
+<link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css">
+<link rel="stylesheet" href="https://unpkg.com/leaflet.markercluster@1.5.3/dist/MarkerCluster.css">
+<style>
+html,body{margin:0;height:100%;font-family:'Gowun Dodum','Malgun Gothic',sans-serif}
+#map{height:470px;border:1px solid #d6dce2;border-radius:12px;background:#f4f1eb}
+.count-cluster{background:transparent;border:0}.count-cluster span{display:flex;align-items:center;justify-content:center;width:100%;height:100%;border-radius:50%;background:#f5d6aa;border:2px solid #fff;box-shadow:0 0 0 6px #e3a55026;color:#614022;font-weight:bold;font-size:13px;box-sizing:border-box}
+.count-cluster.medium span{background:#e9ad76}.count-cluster.large span{background:#d77555;color:white}
+.place-icon{background:none;border:0}.place-icon span{display:block;width:100%;height:100%;box-sizing:border-box;border-radius:50% 50% 50% 0;transform:rotate(-45deg);background:#4384a2;border:2px solid white;box-shadow:0 1px 5px #0005}
+.place-icon.selected span{background:#df5747}
+.legend{background:#fffffff0;border:1px solid #e0d9cc;border-radius:8px;padding:8px 11px;font-size:12px;color:#5f5144;line-height:1.6;box-shadow:0 2px 10px #0001}
+.leaflet-popup-content{line-height:1.7;max-width:240px}.leaflet-popup-content strong{font-size:15px}.leaflet-popup-content p{margin:5px 0}
+#error{display:none;padding:16px;color:#845144;background:#fff2e9}
+</style></head><body><div id="map" aria-label="전체 촬영지 지도"></div><div id="error" role="status"></div>
+<script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+<script src="https://unpkg.com/leaflet.markercluster@1.5.3/dist/leaflet.markercluster.js"></script>
+<script src="https://unpkg.com/leaflet.heat@0.2.0/dist/leaflet-heat.js"></script>
+<script>
+let data,map,markers=[],refresh,lastFocus=false,lastPoints='';
+function send(type,extra={}){window.parent.postMessage({isStreamlitMessage:true,type,...extra},'*');}
+function render(args){
+const signature=JSON.stringify(args.points);
+data=args;
+if(map&&signature===lastPoints){
+ if(lastFocus!==data.focus){const p=data.points.find(p=>p.id===data.selected);if(data.focus&&p)map.setView([p.lat,p.lon],13);else map.fitBounds(L.latLngBounds(data.points.map(p=>[p.lat,p.lon])),{padding:[30,30],maxZoom:12});}
+ lastFocus=data.focus;refresh();return;
+}
+if(map){map.remove();map=null;markers=[];}
+lastPoints=signature;lastFocus=data.focus;
+try {
+map=L.map('map',{scrollWheelZoom:false,minZoom:4,maxZoom:19});
+L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png',{
+ attribution:'&copy; <a href="https://www.openstreetmap.org/copyright" target="_blank">OpenStreetMap</a>',maxZoom:19}).addTo(map);
+const clusters=L.markerClusterGroup({showCoverageOnHover:false,zoomToBoundsOnClick:true,spiderfyOnMaxZoom:true,
+ maxClusterRadius:z=>z<8?65:z<12?40:18,
+ iconCreateFunction:cluster=>{const n=cluster.getChildCount(),size=n<10?34:n<40?42:50;
+ return L.divIcon({className:'count-cluster '+(n>=40?'large':n>=10?'medium':''),html:'<span>'+n+'</span>',iconSize:[size,size]});}});
+function icon(p){const z=map.getZoom()||7,size=z<9?10:z<12?13:17;
+ return L.divIcon({className:'place-icon'+(p.id===data.selected?' selected':''),html:'<span></span>',iconSize:[size,size],iconAnchor:[size/2,size]});}
+markers=[];
+for(const p of data.points){
+ const marker=L.marker([p.lat,p.lon],{icon:icon(p),title:p.name});
+ const body=document.createElement('div'), title=document.createElement('strong'); title.textContent=p.name;body.append(title);
+ for(const text of [p.address,p.works]){const line=document.createElement('p');line.textContent=text;body.append(line);}
+ const link=document.createElement('a');link.textContent='네이버 지도에서 보기 ↗';link.href='https://map.naver.com/p/search/'+encodeURIComponent(p.name+' '+p.address);link.target='_blank';link.rel='noopener noreferrer';body.append(link);
+ marker.on('click',()=>send('streamlit:setComponentValue',{value:{place_id:p.id,nonce:Date.now()+':'+Math.random()},dataType:'json'}));
+ marker.bindPopup(body);clusters.addLayer(marker);markers.push({marker,p});
+}
+clusters.addTo(map);
+const heat=L.heatLayer(data.points.map(p=>[p.lat,p.lon,.5]),{radius:32,blur:25,maxZoom:10,minOpacity:.18,gradient:{.25:'#e6d9af',.55:'#eba85f',.85:'#db6546',1:'#b23f36'}});
+const legend=L.control({position:'bottomleft'});legend.onAdd=()=>{const el=L.DomUtil.create('div','legend');el.id='map-legend';L.DomEvent.disableClickPropagation(el);return el;};legend.addTo(map);
+function update(){const zoom=map.getZoom();if(zoom<10){if(!map.hasLayer(heat))heat.addTo(map);}else if(map.hasLayer(heat))map.removeLayer(heat);
+ for(const {marker,p} of markers)marker.setIcon(icon(p));
+ document.getElementById('map-legend').textContent=zoom<10?'밀집도 색상 · 숫자 = 묶인 장소 수 · 클릭하면 확대':'개별 촬영지 핀 · 빨강 = 선택한 장소 · 겹친 핀은 클릭해 펼치기';}
+const selected=data.points.find(p=>p.id===data.selected);
+if(data.focus&&selected)map.setView([selected.lat,selected.lon],13);
+else if(data.points.length)map.fitBounds(L.latLngBounds(data.points.map(p=>[p.lat,p.lon])),{padding:[30,30],maxZoom:12});
+else map.setView([36.1,127.8],7);
+refresh=update;map.on('zoomend',update); update();
+new ResizeObserver(()=>map.invalidateSize()).observe(document.getElementById('map'));
+}catch(error){document.getElementById('error').style.display='block';document.getElementById('error').textContent='지도를 불러오지 못했어요. 인터넷 연결을 확인하거나 아래 지도 검색을 이용해 주세요.';}
+}
+window.addEventListener('message',event=>{if(event.source===window.parent&&event.data.type==='streamlit:render'){render(event.data.args);send('streamlit:setFrameHeight',{height:478});}});
+send('streamlit:componentReady',{apiVersion:1});
+</script></body></html>
