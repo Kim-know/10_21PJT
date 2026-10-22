@@ -12,7 +12,10 @@ MODEL = 'sentence-transformers/paraphrase-multilingual-MiniLM-L12-v2'
 
 
 def metadata_text(item):
+    scenes = ' '.join(f"{x['work']} {x.get('episode','')} {x.get('description','')}" for x in item.get('scenes', []))
     descriptions = ' '.join(r.get('description', '') for r in item.get('relations', []))
+    if scenes:
+        descriptions = scenes + ' ' + descriptions
     return (f"장소: {item['name']}\n지역: {item['region']}\n주소: {item['address']}\n"
             f"관련 작품: {', '.join(item['works'])}\n장소 유형: {item.get('location_type', '')}\n"
             f"장면 설명: {descriptions}\n검증 상태: {item.get('verification_status', '등록 정보')}\n"
@@ -128,18 +131,20 @@ def mmr_indices(query, vectors, k, weight=0.5):
 
 
 def retrieve_vectors(item, question, mode='similarity'):
-    if mode not in ('similarity', 'mmr'):
+    if mode not in ('similarity', 'mmr', 'hybrid'):
         raise ValueError('지원하지 않는 검색 방식입니다.')
     meta, docs = collections()
     selected = meta.get(ids=[item['id']], include=['documents', 'metadatas'])
     if not selected['ids']:
         raise ValueError('선택 장소의 색인이 없습니다. 자료실에서 기본 자료 색인을 실행해 주세요.')
+    if selected['documents'][0] != metadata_text(item):
+        raise ValueError('장소 정보가 변경돼 검색 색인 갱신이 필요합니다. 기본 자료 색인 / 갱신을 실행해 주세요.')
     evidence = [dict(selected['metadatas'][0], text=selected['documents'][0])]
     subset = docs.get(where={'item_id': item['id']}, include=[])
     k = min(max(0, limits()['top_k'] - 1), len(subset['ids']))
     if k:
         query = embed([question], query=True)
-        fetch_k = min(len(subset['ids']), max(k*4, 20)) if mode == 'mmr' else k
+        fetch_k = min(len(subset['ids']), max(k*4, 20)) if mode in ('mmr','hybrid') else k
         include = ['documents', 'metadatas', 'embeddings'] if mode == 'mmr' else ['documents', 'metadatas']
         found = docs.query(query_embeddings=query, n_results=fetch_k,
                            where={'item_id': item['id']}, include=include)
@@ -147,9 +152,21 @@ def retrieve_vectors(item, question, mode='similarity'):
         if mode == 'mmr':
             chosen = mmr_indices(query[0], found['embeddings'][0], k)
             candidates = [candidates[i] for i in chosen]
+        if mode == 'hybrid':
+            from services.hybrid_search import lexical_rank, fuse
+            all_rows = docs.get(where={'item_id':item['id']},include=['documents','metadatas'])
+            pool = [dict(m,text=t) for m,t in zip(all_rows['metadatas'],all_rows['documents'])]
+            by_id = dict(zip(all_rows['ids'],pool))
+            lexical = [all_rows['ids'][i] for i in lexical_rank(question,pool)[:max(20,k*4)]]
+            keys = fuse(found['ids'][0],lexical,k)
+            candidates = [by_id[key] for key in keys]
         evidence += candidates
     seen, output = set(), []
+    allowed_review_docs = {d.get('document_id') for d in item.get('research_documents', [])}
     for source in evidence:
+        document_id = source.get('document_id','')
+        if document_id.startswith(('confirmed-','enriched-')) and document_id not in allowed_review_docs:
+            continue
         identity = digest([source['text'], source['url']])
         if identity not in seen:
             output.append(source)
@@ -163,4 +180,26 @@ def search_items(condition, limit=12):
         raise ValueError('색인이 없습니다. 기본 자료 색인을 먼저 실행해 주세요.')
     result = meta.query(query_embeddings=embed([condition], query=True), n_results=min(limit, meta.count()),
                         include=['documents', 'metadatas'])
-    return result_sources(result)
+    from services.confirmed_places import load_catalog
+    active = {p['id']:p for p in load_catalog()}
+    return [r for r in result_sources(result) if r['item_id'] in active
+            and r['text']==metadata_text(active[r['item_id']])]
+
+
+def sync_review_index(place_id):
+    """취소한 사용자 근거를 제거하고 기본 기록이 있으면 되돌린다."""
+    from services.confirmed_places import load_catalog, mark_indexed
+    meta, docs = collections()
+    rows = docs.get(where={'item_id':place_id}, include=['metadatas'])
+    remove = [key for key,m in zip(rows['ids'],rows['metadatas']) if m.get('document_id','').startswith('confirmed-')]
+    if remove:
+        docs.delete(ids=remove)
+    current = next((p for p in load_catalog() if p['id']==place_id), None)
+    if current:
+        build_index([current])
+    else:
+        meta.delete(ids=[place_id])
+        leftovers = docs.get(where={'item_id':place_id}, include=[])
+        if leftovers['ids']:
+            docs.delete(ids=leftovers['ids'])
+    mark_indexed(place_id)

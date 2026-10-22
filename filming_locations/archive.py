@@ -23,19 +23,19 @@ from services.research import collect_for_question, explore
 from services.confirmed_places import load_catalog, pending_index_count, saved_records, mark_indexed
 
 def render_archive():
-    st.title("🎬 장면에서 여행으로")
+    st.title("촬영지 자료실")
     st.caption("영화 촬영지 탐색 · 작품과 장소의 근거를 함께 모으는 여행 지도")
     config = limits()
     indexed = counts()
-    with st.sidebar:
+    with st.expander('검색 방식 · 색인 설정', expanded=False):
         st.caption(f"벡터 색인 · 장소 {indexed['metadata']}건 / 문서 청크 {indexed['documents']}건")
-        search_method = st.segmented_control('근거 검색 방식', ['유사도', '다양성 MMR'], default='유사도', key='archive_search_method') or '유사도'
+        search_method = st.segmented_control('근거 검색 방식', ['유사도', '다양성 MMR', '키워드+의미'], default='유사도', key='archive_search_method') or '유사도'
         if not indexed['metadata']:
             st.warning('색인이 없습니다. 아래 기본 자료 색인을 실행해 주세요.')
         st.caption(f"절약 모드 · 오늘 LLM 호출 {call_count()}/{config['daily_calls']}회")
         st.caption(f"근거 최대 {config['context_chars']}자 · 답변 한도 {config['output_tokens']}토큰")
     
-    with st.sidebar:
+    with st.expander('촬영지 선택 · 필터', expanded=True):
         st.header("촬영지 선택")
         uploaded = st.file_uploader("촬영지 JSON 불러오기", type=["json"])
         try:
@@ -56,8 +56,9 @@ def render_archive():
                 try:
                     indexed = build_index(locations)
                     if not uploaded:
-                        for saved in saved_records():
-                            mark_indexed(saved['id'])
+                        for saved in saved_records(include_inactive=True):
+                            from services.vector_store import sync_review_index
+                            sync_review_index(saved['id'])
                     st.success(f"장소 {indexed['metadata']}건 · 문서 청크 {indexed['documents']}건")
                 except Exception:
                     st.error('색인을 완료하지 못했습니다. 모델 다운로드 연결과 저장 경로를 확인해 주세요.')
@@ -85,12 +86,19 @@ def render_archive():
     
     # 데이터가 바뀌어도 같은 ID의 다른 장소에 이전 기록이 붙지 않게 초기화한다.
     if st.session_state.get("catalog_raw") != raw:
-        previous = {p['id']: (p['name'], p['address']) for p in json.loads(st.session_state.get('catalog_raw', '[]'))}
+        previous_records = {p['id']: p for p in json.loads(st.session_state.get('catalog_raw', '[]'))}
+        def review_signature(place):
+            return [place.get(k) for k in ('name','address','scenes','user_confirmed','research_documents')]
+        previous = {key:review_signature(place) for key,place in previous_records.items()}
         conversations = st.session_state.setdefault('conversations', {})
         documents = st.session_state.setdefault('documents', {})
+        active_ids = {p['id'] for p in locations}
+        for removed in set(previous)-active_ids:
+            conversations.pop(removed,None)
+            documents.pop(removed,None)
         for place in locations:
             place_id = place['id']
-            if place_id in previous and previous[place_id] != (place['name'], place['address']):
+            if place_id in previous and previous[place_id] != review_signature(place):
                 conversations.pop(place_id, None)
                 documents.pop(place_id, None)
             old = documents.get(place_id, [])
@@ -99,7 +107,7 @@ def render_archive():
         st.session_state.catalog_raw = raw
     messages = st.session_state.conversations.setdefault(selected_id, [])
     st.session_state.documents.setdefault(selected_id, item.get("research_documents", []))
-    with st.sidebar:
+    with st.container():
         if st.button("이 촬영지 대화 지우기"):
             messages.clear()
     
@@ -141,7 +149,11 @@ def render_archive():
         st.download_button("전체 촬영지 JSON 내려받기", json.dumps(locations, ensure_ascii=False, indent=2),
                            file_name="filming_locations.json", mime="application/json")
     
+    from ui.enrichment_review import render_enrichment
+    render_enrichment(locations)
     st.subheader(item["name"])
+    from ui.catalog_management import render_management
+    render_management(item)
     if item.get('user_confirmed'):
         st.caption('사용자가 검색 결과의 장면 일치를 확인해 저장한 장소입니다. 공식 기관 검증과는 구분됩니다.')
     st.write("관련 작품: " + ", ".join(item["works"]))
@@ -242,7 +254,7 @@ def render_archive():
             try:
                 with st.spinner("문서를 바탕으로 답변을 만드는 중…"):
                     state = graph.invoke({'item': item, 'question': question, 'history': messages,
-                                          'search_mode': 'mmr' if search_method == '다양성 MMR' else 'similarity'})
+                                          'search_mode': {'다양성 MMR':'mmr','키워드+의미':'hybrid'}.get(search_method,'similarity')})
                     evidence, result = state['sources'], state['result']
                     answer = result["answer"]
                 st.markdown(answer)

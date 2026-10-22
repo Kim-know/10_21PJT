@@ -15,10 +15,11 @@ from services.confirmed_places import saved_records
 def run():
     with TemporaryDirectory() as directory, patch.dict(os.environ, {
             'CONFIRMED_DB_PATH': str(Path(directory) / 'confirmed.sqlite3'),
-            'APP_CACHE_DIR': str(Path(directory) / 'cache'), 'GMS_KEY': ''}), \
+            'APP_CACHE_DIR': str(Path(directory) / 'cache'), 'RESEARCH_DB_PATH': str(Path(directory)/'research.sqlite3'), 'GMS_KEY': ''}), \
             TestClient(app, raise_server_exceptions=False) as client:
         assert client.get('/').status_code == 200
         assert client.get('/assets/app.js').status_code == 200
+        assert len(client.get('/api/examples').json()['examples']) == 3
         status = client.get('/api/status')
         assert status.status_code == 200 and not status.json()['ai_ready']
         assert set(status.json()['index']) >= {'metadata', 'documents'}
@@ -58,6 +59,19 @@ def run():
                 place_id = saved.json()['place']['id']
                 failed = client.post('/api/chat', json={'place_id': place_id, 'question': '질문'})
                 assert failed.status_code == 500 and 'PRIVATE_SERVER_TRACE' not in failed.text
+            place_id=saved.json()['place']['id']
+            assert client.get('/api/reviews').status_code==200
+            with patch('services.vector_store.sync_review_index'):
+                edited=client.post('/api/revise',json={'place_id':place_id,'action':'correct','reason':'주소 정정','changes':{'address':'수정 주소'}})
+                assert edited.status_code==200 and edited.json()['record']['address']=='수정 주소'
+                assert client.post('/api/revise',json={'place_id':place_id,'action':'withdraw','reason':'장면 오인'}).status_code==200
+                assert all(p['id']!=place_id for p in client.get('/api/places').json()['places'])
+                assert client.post('/api/revise',json={'place_id':place_id,'action':'restore','reason':'재확인'}).status_code==200
+            assert client.post('/api/revise',json={'place_id':'baseline-missing','action':'correct','reason':'허위','changes':{'address':'변경'}}).status_code==400
+            assert client.get('/api/enrichment').json()['records']==[]
+            with patch('services.scene_finder.refine_scene',return_value=result):
+                refined=client.post('/api/refine',data={'review_token':token,'additional_hint':'8회 갈대밭'},files={'image':('test.png',data.getvalue(),'image/png')})
+                assert refined.status_code==200 and refined.json()['review_token']!=token
         _pending.clear()
     print('PASS: frontend assets, API validation, key guard, origin/host guard, scene review token, explicit confirmation, DB dedup, safe errors')
 

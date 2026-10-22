@@ -32,18 +32,20 @@ def render_place_review(candidate, sources, work, media_type, review_id):
         address = st.text_input('확인한 주소', value=candidate.get('address', ''), max_chars=300, key=key + '_address')
         region = st.text_input('지역', value=(candidate.get('address', '').split() or [''])[0],
                                max_chars=100, placeholder='예: 서울특별시 / 제주특별자치도', key=key + '_region')
+        episode = st.text_input('회차·시점 (선택)', max_chars=80, key=key+'_episode', placeholder='예: 8회 / 00:32:10')
+        scene_description = st.text_area('저장할 장면 설명 (선택)', max_chars=500, key=key+'_scene_description')
         st.link_button('장소명·주소로 지도에서 확인', 'https://map.naver.com/p/search/' + quote(name + ' ' + address))
         coordinate_mode = st.radio('지도에 표시할 위치', ['위치 후보 검색', '위도·경도 직접 입력', '좌표 없이 자료실에만 저장'],
                                     key=key + '_coordinate_mode')
         latitude = longitude = None
         coordinate_source = ''
         if coordinate_mode == '위치 후보 검색':
-            st.caption('OpenStreetMap 기반 위치 후보입니다. 동명 장소가 있을 수 있으므로 주소와 지도 위치를 확인해 주세요.')
+            st.caption('네이버 지도와 다른 OpenStreetMap 검색입니다. 전체 검색에 결과가 없으면 주소·장소명을 나눠 검색합니다. 동명 장소가 있을 수 있으므로 주소와 지도 위치를 확인해 주세요.')
             query = (name + ' ' + address).strip()
             if st.button('이 장소의 위치 후보 찾기', key=key + '_geocode'):
                 try:
                     with st.spinner('지도 위치 후보를 찾고 있어요…'):
-                        st.session_state[key + '_geocoded'] = {'query': query, 'points': lookup(query)}
+                        st.session_state[key + '_geocoded'] = {'query': query, 'points': lookup(query, name=name, address=address)}
                 except Exception:
                     st.warning('위치 후보를 찾지 못했어요. 잠시 후 다시 시도하거나 좌표를 직접 입력해 주세요.')
             found = st.session_state.get(key + '_geocoded', {})
@@ -57,7 +59,7 @@ def render_place_review(candidate, sources, work, media_type, review_id):
                         point = points[chosen]
                         latitude, longitude, coordinate_source = point['latitude'], point['longitude'], point['source']
                 else:
-                    st.info('위치 후보가 없습니다. 정확한 좌표를 직접 입력하거나 좌표 없이 저장할 수 있어요.')
+                    st.info('지도 검색 서비스에서 일치하는 위치 후보를 찾지 못했습니다. 주소가 틀렸다는 뜻은 아니에요. 외부 지도에서 좌표를 확인해 직접 입력하거나 좌표 없이 저장할 수 있어요.')
         elif coordinate_mode == '위도·경도 직접 입력':
             left, right = st.columns(2)
             lat_text = left.text_input('위도', placeholder='예: 37.5796', key=key + '_lat')
@@ -88,7 +90,7 @@ def render_place_review(candidate, sources, work, media_type, review_id):
                     record = save_confirmed(candidate=candidate, sources=sources, work=work,
                         media_type=media_type, name=name, address=address, region=region, confirmed=True,
                         latitude=latitude, longitude=longitude, coordinates_confirmed=coordinates_confirmed,
-                        coordinate_source=coordinate_source)
+                        coordinate_source=coordinate_source, episode=episode, scene_description=scene_description)
                     st.session_state[key + '_saved'] = record['id']
                     try:
                         build_index([record])

@@ -22,3 +22,17 @@
 확인 전 저장은 HTTP 400, 만료된 토큰은 410, 입력 오류는 422, 키 누락은 503, 예상하지 못한 오류는 내용이 가려진 500을 반환한다. 같은 출처/주소 중복은 새 장소를 생성하지 않고 병합한다. 지도 좌표는 별도 확인해야 한다. 다른 웹사이트 Origin의 변경 요청과 허용하지 않은 Host는 차단한다.
 
 브라우저 채팅은 장소 ID별 메모리에 분리하며 새로고침하면 지워진다. 영구 보존은 확인한 장소 DB에만 적용한다. GMS가 없으면 자료실·필터·지도·좌표 조회·색인은 사용 가능하며 모델이 필요한 기능은 연결 전 안내를 표시한다.
+
+
+추가 API (2026-10-22):
+
+|메서드·경로|입력|출력|
+|---|---|---|
+|GET /api/reviews|없음|사용자 저장·취소 기록과 정정 이력|
+|POST /api/revise|place_id, action(correct/withdraw/restore), changes, reason|record, indexed|
+|GET /api/enrichment|없음|수집 본문 대기/승인/제외 목록|
+|POST /api/enrichment/collect|빈 JSON|기존 공식 출처 최대 5개 수집 결과|
+|POST /api/enrichment/review|document_id, approved|승인 후 색인 또는 제외|
+|POST /api/refine|multipart review_token, image, additional_hint, compare_photos|기존 단서를 재사용한 result, 새 review_token|
+
+/api/chat의 mode는 hybrid도 허용한다. /api/confirm은 episode(80자), scene_description(500자)를 추가로 받는다. /api/geocode는 query 외에 name/address를 받아 분리 검색한다. 정정은 사용자 저장 기록에만 적용하며 취소는 복원 가능하다. 주소 변경 시 좌표 재확인이 필요하다. 본문 대기 DB는 원문 캐시로 검토 패키지에 포함하지 않는다.

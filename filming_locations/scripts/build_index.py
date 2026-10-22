@@ -12,5 +12,6 @@ from services.confirmed_places import load_catalog, saved_records, mark_indexed
 if __name__ == '__main__':
     catalog = load_catalog()
     print(json.dumps(build_index(catalog), ensure_ascii=False))
-    for saved in saved_records():
-        mark_indexed(saved['id'])
+    for saved in saved_records(include_inactive=True):
+        from services.vector_store import sync_review_index
+        sync_review_index(saved['id'])

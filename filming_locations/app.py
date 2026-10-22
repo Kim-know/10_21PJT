@@ -29,7 +29,7 @@ font-family:var(--scene-font) !important;
 }
 .stApp p {line-height:1.8;}
 .stApp input, .stApp textarea, .stApp button {letter-spacing:.015em;}
-.stApp h1, .stApp h2, .stApp h3 {letter-spacing:-.035em;font-weight:600;}
+.stApp h1, .stApp h2, .stApp h3 {letter-spacing:-.035em;font-weight:600;word-break:keep-all;text-wrap:balance;}
 .block-container {max-width: 1120px; padding-top: 2.5rem;}
 h1 {font-size:clamp(1.85rem,4vw,2.8rem) !important; line-height:1.45 !important; word-break:keep-all;}
 .scene-kicker {color:#64748b; font-size:.86rem; letter-spacing:.13em; margin-bottom:.6rem;}
@@ -59,11 +59,32 @@ border:1.5px solid #b9c5d3 !important; border-radius:14px; padding:20px !importa
 border:1px solid #cbd5e1 !important; border-radius:8px;
 }
 </style>''', unsafe_allow_html=True)
-with st.sidebar:
-    st.header('🎬 장면에서 여행으로')
-    mode = st.radio('메뉴', ['장면으로 장소 찾기', '촬영지 자료실'], key='app_mode')
-    st.divider()
-    config = limits()
+from ui.slate_theme import apply_slate_theme, CLAPPER, HEADER, HERO
+apply_slate_theme()
+
+st.markdown("""<style>
+[data-testid="stSidebar"], [data-testid="stSidebarCollapsedControl"]{display:none!important}
+.st-key-top_navigation{background:#f7f7f5;border-bottom:1px solid #d9dada;padding:8px 0;margin-bottom:14px}
+[data-testid="stLayoutWrapper"]:has(>.st-key-top_navigation){position:sticky;top:3.75rem;z-index:990;background:#f7f7f5;box-shadow:0 6px 12px #171b1d06}
+.st-key-top_navigation [role="radiogroup"]{gap:30px;justify-content:center}
+.st-key-top_navigation [data-testid="stRadioOption"]{padding:12px 0!important;margin:0!important;border-bottom:2px solid transparent;cursor:pointer}
+.st-key-top_navigation [data-testid="stRadioOption"][data-selected="true"]{border-bottom-color:#b33b30}
+.st-key-top_navigation [data-testid="stRadioOption"]>div>div>div:not([data-testid="stMarkdownContainer"]){display:none!important}
+.st-key-top_navigation [data-testid="stRadioOption"]>div>div{gap:0!important}
+.st-key-top_navigation [data-testid="stRadioOption"] p{font-size:14px;font-weight:600;color:#555d61}
+.st-key-top_navigation [data-testid="stRadioOption"][data-selected="true"] p{color:#171b1d}
+.st-key-top_navigation [data-testid="stRadioOption"]:focus-within{outline:2px solid #b33b30;outline-offset:4px}
+.nav-brand{font-size:21px;font-weight:800;letter-spacing:-.05em;color:#171b1d;line-height:1.6;padding:8px 0;margin-bottom:12px}
+.stMainBlockContainer.block-container{padding-top:5rem!important}
+#scene-search{scroll-margin-top:135px}
+@media(max-width:480px){.st-key-top_navigation [role="radiogroup"]{gap:25px}.st-key-top_navigation [data-testid="stRadioOption"] p{font-size:13px}}
+</style>""", unsafe_allow_html=True)
+st.markdown('<div class="nav-brand">장면에서 여행으로</div>', unsafe_allow_html=True)
+with st.container(key='top_navigation'):
+    mode = st.radio('메뉴', ['장면으로 장소 찾기', '촬영지 자료실'], horizontal=True,
+                    label_visibility='collapsed', key='app_mode')
+config = limits()
+with st.expander('AI 사용 안내', expanded=False):
     calls_display = st.empty()
     calls_display.caption(f"오늘 AI 호출 {call_count()} / {config['daily_calls']}회")
     st.caption('새 캡처 검색은 보통 AI 호출 2회입니다. 같은 입력과 자료는 저장한 결과를 재사용합니다.')
@@ -75,16 +96,14 @@ if mode == '촬영지 자료실':
     render_archive()
     st.stop()
 
-st.markdown('<div class="scene-kicker">FROM SCENE TO PLACE</div>', unsafe_allow_html=True)
-st.title('마음에 든 그 장면, 어디일까요?')
-st.write('보고 있는 영상의 이름과 캡처 한 장을 보내 주세요. 장소를 찾을 단서와 촬영 정보를 함께 살펴봅니다.')
-st.markdown('<div class="scene-steps"><span>01 작품과 장면 입력</span><span>02 배경 단서·촬영 정보 검색</span><span>03 장소 후보와 근거 확인</span></div>', unsafe_allow_html=True)
-
+st.markdown(HERO, unsafe_allow_html=True)
+st.markdown('<div id="scene-search"></div>', unsafe_allow_html=True)
 image_bytes = None
 with st.container(key='scene_layout'):
+    st.markdown(CLAPPER+HEADER,unsafe_allow_html=True)
     entry, picture = st.columns(2, gap='large')
     with entry, st.container(border=True, key='video_info_card'):
-        st.markdown('<p class="section-label"><span>01</span>영상 정보</p>', unsafe_allow_html=True)
+        st.markdown('<p class="section-label"><span>SCENE 01</span>영상 정보</p>', unsafe_allow_html=True)
         st.divider()
         media_type = st.segmented_control('영상 종류', ['영화', '드라마', '유튜브', '기타 영상'],
                                           default='영화', selection_mode='single', key='scene_media_type') or '영화'
@@ -100,7 +119,7 @@ with st.container(key='scene_layout'):
         compare_photos = st.checkbox('웹에서 찾은 참고 사진도 함께 비교', value=True)
         st.caption('영상 제목은 정확하게, 캡처는 배경이 넓게 보이도록 붙여넣으면 도움이 됩니다.')
     with picture, st.container(border=True, key='scene_image_card'):
-        st.markdown('<p class="section-label"><span>02</span>장면 캡처</p>', unsafe_allow_html=True)
+        st.markdown('<p class="section-label"><span>FRAME 02</span>장면 캡처</p>', unsafe_allow_html=True)
         st.divider()
         try:
             image_bytes = clipboard_image()
@@ -155,6 +174,20 @@ if result:
         st.write('읽힌 글자: ' + ' · '.join(result['clues']['visible_text']))
     if result['clues']['features']:
         st.caption('주요 특징: ' + ' · '.join(result['clues']['features']))
+    with st.expander('검색 결과에 단서 추가하기'):
+        st.caption('현재 캡처와 이전 검색 자료를 유지하고 회차·대사·주변 풍경을 추가합니다. 이미지 단서 분석을 재사용하고 최종 후보 검토는 최대 1회 AI 호출합니다.')
+        extra_hint = st.text_input('추가 단서',max_chars=200,key='scene_extra_hint')
+        if st.button('현재 캡처에 단서 추가해 다시 찾기'):
+            try:
+                from services.scene_finder import refine_scene
+                with st.spinner('기존 단서와 새 검색 자료를 함께 검토하고 있어요…'):
+                    refined = refine_scene(result,image_bytes,extra_hint,load_catalog(),compare_photos=compare_photos)
+                st.session_state.scene_result = refined
+                st.rerun()
+            except ValueError as error:
+                st.warning(str(error))
+            except Exception:
+                st.error('추가 검색을 완료하지 못했습니다. 기존 결과는 유지됩니다.')
     st.subheader('찾아볼 장소 후보')
     st.caption('시각적 유사성과 촬영 자료를 바탕으로 좁힌 후보입니다. 검색 결과만으로 촬영 장소가 확정되지는 않습니다.')
     if not result['candidates']:
@@ -162,6 +195,8 @@ if result:
     for index, candidate in enumerate(result['candidates'], 1):
         with st.container(border=True):
             st.markdown(f"### 후보 {index} · {candidate['place']}")
+            status = candidate.get('visual_match', 'unconfirmed')
+            st.caption({'consistent': '자료 속 촬영지 후보 · 장면 공통 특징 확인', 'different': '자료 속 촬영지 후보 · 캡처와 불일치 있음', 'unconfirmed': '자료 속 촬영지 후보 · 캡처 일치 여부 미확인'}.get(status, '캡처 일치 여부 미확인'))
             st.write(candidate['reason'])
             if candidate['address']:
                 st.write('자료에 나온 주소: ' + candidate['address'])
@@ -175,11 +210,8 @@ if result:
                 st.write('근거: ' + evidence['quote'])
                 st.link_button(source['title'][:100] or '촬영 정보 출처', source['url'])
                 st.caption(source.get('source_type', '검색 자료'))
-            used_refs = [p for p in result['references'] if p['id'] in candidate['reference_ids']]
-            for ref in used_refs:
-                with st.expander('비교에 참고한 사진 · ' + ref['title'][:70]):
-                    st.image(ref['image_url'], width='stretch')
-                    st.link_button('사진이 실린 페이지', ref['url'])
+            from ui.photo_compare import render_photo_compare
+            render_photo_compare(prepared,result['references'],candidate,signature[:12]+'_'+str(index))
             render_place_review(candidate, result['sources'], work.strip(), media_type,
                                 hashlib.sha256((signature + str(index)).encode()).hexdigest()[:16])
     if result['uncertainty']:

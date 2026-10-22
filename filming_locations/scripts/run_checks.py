@@ -8,7 +8,7 @@ from time import perf_counter
 
 ROOT = Path(__file__).resolve().parents[1]
 CHECKS = ['check_grounding.py', 'check_rag.py', 'check_scene.py', 'check_app.py',
-          'check_savings.py', 'check_confirmed.py', 'check_api.py', 'check_source_policy.py']
+          'check_savings.py', 'check_confirmed.py', 'check_api.py', 'check_source_policy.py', 'check_geocoding.py', 'check_improvements.py', 'check_photo_compare.py']
 
 if __name__ == '__main__':
     results = []

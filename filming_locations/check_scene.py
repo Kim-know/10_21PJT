@@ -9,7 +9,7 @@ from unittest.mock import patch
 from PIL import Image
 from streamlit.testing.v1 import AppTest
 
-from services.scene_finder import find_scene, prepare_image, Findings, validate_findings
+from services.scene_finder import find_scene, prepare_image, Findings, validate_findings, Clues, source_excerpt
 
 
 def response(data):
@@ -63,6 +63,32 @@ def run():
             empty = find_scene("테스트작품", raw, "", [], compare_photos=False)
             assert empty["candidates"] == []
             assert model.return_value.invoke.call_count == 2
+
+    # 네 번째 검색 기사, 긴 본문 뒤의 촬영지 문장, 시각 미확인도 후보 유지.
+    location_quote = "드라마 남자친구 8회 갈대밭 장면은 시흥 갯골생태공원에서 촬영했다."
+    article = "일반 소개 문장. " * 600 + location_quote
+    excerpt = source_excerpt({'text': '갈대밭 전망대 촬영 안내'}, article, '남자친구')
+    assert location_quote in excerpt and len(excerpt) <= 1000
+    articles = [dict(title='촬영 기사 '+str(i), url='https://example.com/article/'+str(i),
+                     text='드라마 관련 기사 요약', source_type='웹 검색 요약') for i in range(6)]
+    unconfirmed = Findings.model_validate({'candidates': [{'place': '시흥 갯골생태공원',
+        'reason': '기사에서 해당 작품의 촬영지로 명시', 'differences': '캡처와 일치 여부는 미확인',
+        'visual_match': 'unconfirmed', 'evidence': [{'source_id': 4, 'quote': location_quote}]}],
+        'uncertainty': '기사의 촬영지이며 현재 장면의 정답인지는 확인 필요'})
+    def fake_json(stage, messages, schema, identity):
+        if stage == 'clues':
+            return Clues.model_validate(clues), {'cache_hit': False}
+        prompt = messages[0]['content'][0]['text']
+        assert location_quote in prompt and '시각 비교가 불확실해도 후보를 남긴다' in prompt
+        return unconfirmed, {'cache_hit': False}
+    with patch('services.scene_finder.call_json', side_effect=fake_json), \
+         patch('services.scene_finder.search_web', return_value=articles), \
+         patch('services.scene_finder.fetch_text', side_effect=lambda url: article if url.endswith('/3') else '다른 소개') as fetch:
+        result = find_scene('남자친구', raw, '갈대밭 전망대', [], compare_photos=False)
+        assert fetch.call_count == 6, '앞의 두 기사만 읽으면 뒤쪽 촬영지를 놓친다'
+        assert result['candidates'][0]['place'] == '시흥 갯골생태공원'
+        assert result['candidates'][0]['visual_match'] == 'unconfirmed'
+        assert not result['candidates'][0]['reference_ids']
 
     with patch.dict(os.environ, {"GMS_KEY": ""}):
         app = AppTest.from_file("app.py", default_timeout=30).run()

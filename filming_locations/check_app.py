@@ -53,17 +53,17 @@ with patch.object(Path, "read_text", read_catalog), \
     app.chat_input[0].set_value("테스트 질문").run()
     assert not app.exception
     assert len(app.chat_message) == 2
-    app.selectbox[1].select("1").run()
+    next(s for s in app.selectbox if s.key=='archive_place').select("1").run()
     assert not app.exception
     assert len(app.chat_message) == 0, "다른 촬영지의 대화가 섞이면 안 됩니다"
-    app.selectbox[1].select("0").run()
+    next(s for s in app.selectbox if s.key=='archive_place').select("0").run()
     assert len(app.chat_message) == 2, "원래 촬영지의 대화가 유지되어야 합니다"
     next(b for b in app.button if b.label == "이 촬영지 대화 지우기").click().run()
     assert len(app.chat_message) == 0
     with patch('ui.location_map.render_location_map', return_value=(0, {'place_id': '1', 'nonce': 'map-click-test'})):
         app.run()
         assert not app.exception
-        assert app.selectbox[1].value == '1', '핀 클릭이 자료실 선택 항목을 바꿔야 합니다'
+        assert next(s for s in app.selectbox if s.key=='archive_place').value == '1', '핀 클릭이 자료실 선택 항목을 바꿔야 합니다'
         assert any('테스트 장소 1' in h.value for h in app.subheader)
     with patch('archive.counts', return_value={'metadata': 0, 'documents': 0}):
         app.run()

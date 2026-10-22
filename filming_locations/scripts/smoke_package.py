@@ -12,7 +12,7 @@ ROOT = Path(__file__).resolve().parents[1]
 if __name__ == '__main__':
     (ROOT / '.tmp').mkdir(exist_ok=True)
     with TemporaryDirectory(dir=ROOT / '.tmp') as directory:
-        with zipfile.ZipFile(ROOT / 'output/filming_locations_review.zip') as archive:
+        with zipfile.ZipFile(ROOT / 'output' / (Path(sys.argv[1]).name if len(sys.argv) > 1 else 'filming_locations_review.zip')) as archive:
             assert archive.testzip() is None
             archive.extractall(directory)
         package = Path(directory) / 'filming_locations'

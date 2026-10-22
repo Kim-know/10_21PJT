@@ -10,7 +10,7 @@ from pydantic import BaseModel, Field
 from services import cache
 from services.vector_store import index_documents, metadata_text
 from services.web_search import search_web, fetch_text
-from settings import limits
+from settings import limits, number
 
 ROOT = Path(__file__).resolve().parents[1]
 
@@ -32,7 +32,7 @@ class Queries(BaseModel):
 
 
 class Selection(BaseModel):
-    ids: list[int] = Field(max_length=3)
+    ids: list[int] = Field(max_length=6)
 
 
 class Matches(BaseModel):
@@ -78,6 +78,9 @@ def collect_for_question(item, question):
         result = json.loads(destination.read_text(encoding='utf-8'))
         index_documents(item, result['documents'])
         return dict(result, reused=True)
+    result_limit = number('RESEARCH_RESULTS_PER_QUERY', 5, 3, 8)
+    candidate_limit = number('RESEARCH_CANDIDATE_LIMIT', 15, 8, 24)
+    document_limit = number('RESEARCH_DOCUMENT_LIMIT', 5, 3, 6)
     queries = structured('queries',
         '너는 촬영지 자료 조사 전문가다. 장소 자체 설명과 사용자 질문에 필요한 외부 문서 검색어 최대 2개를 뽑는다. '
         '출력: {"queries":["검색어"]}',
@@ -86,19 +89,19 @@ def collect_for_question(item, question):
     queries = list(dict.fromkeys([item['name'] + ' 장소 설명 촬영지'] + queries))
     candidates = {}
     for query in queries:
-        for source in durable_fetch('queries', query, lambda: search_web(query, limit=3)):
+        for source in durable_fetch('queries', [query,result_limit], lambda: search_web(query, limit=result_limit)):
             candidates.setdefault(source['url'], source)
-    candidates = list(candidates.values())[:8]
+    candidates = list(candidates.values())[:candidate_limit]
     if not candidates:
         return {'queries': queries, 'documents': [], 'selected': [], 'rejected': [], 'reused': False,
                 'notice': '검색 문서가 없습니다. 기존 항목 설명 문서는 유지합니다.'}
     selection = structured('select',
-        '너는 촬영지 문서 심사자다. 질문과 장소에 관련된 신뢰 가능한 문서만 최대 3개 선택한다. '
+        f'너는 촬영지 문서 심사자다. 질문과 장소에 관련된 신뢰 가능한 문서만 최대 {document_limit}개 선택한다. '
         '제목·요약만 보고 ID를 선택하며 관련 없는 문서는 버린다. 출력: {"ids":[1,2]}',
         {'item': item['name'], 'question': question,
          'candidates': [dict(id=i, title=s['title'], summary=s['text'], url=s['url'])
                         for i, s in enumerate(candidates, 1)]}, Selection)
-    chosen = {i for i in selection.ids if 1 <= i <= len(candidates)}
+    chosen = set(list(dict.fromkeys(i for i in selection.ids if 1 <= i <= len(candidates)))[:document_limit])
     documents, failed = [], []
     for i, source in enumerate(candidates, 1):
         if i not in chosen:

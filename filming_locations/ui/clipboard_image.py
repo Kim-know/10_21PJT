@@ -6,6 +6,7 @@ import streamlit as st
 from streamlit.components.v2 import component
 
 HTML = '''<div class="paste-box" role="textbox" aria-label="스크린샷 붙여넣기 영역" tabindex="0">
+  <img class="capture-preview" alt="붙여넣은 장면 미리보기" hidden>
   <div class="icon" aria-hidden="true">▧</div>
   <strong>여기를 클릭하고 Ctrl+V</strong>
   <p>복사한 스크린샷을 붙여넣으세요</p>
@@ -13,7 +14,8 @@ HTML = '''<div class="paste-box" role="textbox" aria-label="스크린샷 붙여�
 </div><div class="paste-status" role="status" aria-live="polite"></div>
 <button class="clear" type="button" hidden>붙인 이미지 지우기</button>'''
 
-CSS = '''@font-face {font-family:'Gowun Dodum';font-style:normal;font-weight:400;font-display:swap;src:url('https://fonts.gstatic.com/s/gowundodum/v12/3Jn5SD_00GqwlBnWc1TUJF0F.ttf') format('truetype');}
+CSS = '''@import url('https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;500;600;700;800&display=swap');
+@font-face {font-family:'Gowun Dodum';font-style:normal;font-weight:400;font-display:swap;src:url('https://fonts.gstatic.com/s/gowundodum/v12/3Jn5SD_00GqwlBnWc1TUJF0F.ttf') format('truetype');}
 .paste-box,.paste-status,.clear{font-family:'Gowun Dodum','Malgun Gothic',sans-serif;line-height:1.8;}
 .paste-box{border:2px dashed #c5ceda;border-radius:12px;padding:24px 16px;
 text-align:center;cursor:text;color:var(--st-text-color,#243247);background:var(--st-secondary-background-color,#f8fafc);outline:none;}
@@ -22,16 +24,25 @@ text-align:center;cursor:text;color:var(--st-text-color,#243247);background:var(
 strong{font-size:17px;}p{font-size:14px;margin:9px 0;}small{font-size:12px;line-height:1.8;color:#64748b;}
 .paste-status{font-size:13px;margin:10px 0;color:var(--st-text-color,#243247);}
 .clear{border:1px solid #cbd5e1;border-radius:8px;background:transparent;color:var(--st-text-color,#243247);padding:7px 12px;cursor:pointer;}
-[hidden]{display:none!important;}'''
+.paste-box{min-height:290px;box-sizing:border-box;display:flex;flex-direction:column;justify-content:center;align-items:center;background:#202823;color:#f4f0e5;border:1px dashed #8e9f8c;border-radius:5px;padding:24px 16px}.paste-box:focus{border-color:#e7d9b6;box-shadow:0 0 0 3px #e7d9b622}.icon{color:#d7c59e}small{color:#b2c0b3}.paste-status{color:#c9d5c8}.clear{border-color:#82917f;color:#e6eddf;border-radius:4px}
+.capture-preview{display:block;width:100%;max-height:310px;object-fit:contain;border-radius:3px}.paste-box.has-image{padding:12px}
+.paste-box,.paste-status,.clear{font-family:'Malgun Gothic',sans-serif}.paste-box{background:#f3f3f1;color:#25292b;border:1px dashed #9ba2a4;border-radius:0;min-height:310px}.paste-box:focus{border-color:#ad382d;box-shadow:0 0 0 2px #ad382d22}.icon{color:#3e464a}small{color:#5d6569}.paste-status{color:#424a4e}.clear{color:#24292c;border-color:#999;border-radius:0}.paste-box,.paste-status,.clear{font-family:'Noto Sans KR','Malgun Gothic',sans-serif;font-synthesis:none}.paste-box strong{font-size:18px;font-weight:700}.paste-box p{font-size:15px;font-weight:500}.paste-box small{font-size:13px;line-height:1.8;color:#535d62}[hidden]{display:none!important;}'''
 
-JS = '''export default function({parentElement, data, setStateValue}) {
+JS = r'''export default function({parentElement, data, setStateValue}) {
   const box = parentElement.querySelector('.paste-box');
   const status = parentElement.querySelector('.paste-status');
+  const preview = parentElement.querySelector('.capture-preview');
+  const guide = box.querySelectorAll('.icon,strong,p,small');
   const clear = parentElement.querySelector('.clear');
   let active = true;
   let reader = null;
   let sequence = 0;
   function render(value) {
+    const shown = typeof value?.data_url === 'string' && /^data:image\/(png|jpeg|webp);base64,/.test(value.data_url);
+    preview.hidden = !shown;
+    if (shown) preview.src = value.data_url; else preview.removeAttribute('src');
+    guide.forEach(el => {el.hidden = shown;});
+    box.classList.toggle('has-image', shown);
     status.textContent = value ? '스크린샷이 준비됐어요. 다시 붙여넣으면 새 이미지로 바뀝니다.' : '';
     clear.hidden = !value;
   }

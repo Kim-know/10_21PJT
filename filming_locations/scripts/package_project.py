@@ -41,7 +41,7 @@ def run():
                                sha256=hashlib.sha256(p.read_bytes()).hexdigest()) for p in files]}
     output = ROOT / 'output'
     output.mkdir(exist_ok=True)
-    path = output / 'filming_locations_review.zip'
+    path = output / (Path(sys.argv[1]).name if len(sys.argv) > 1 else 'filming_locations_review.zip')
     with zipfile.ZipFile(path, 'w', compression=zipfile.ZIP_DEFLATED) as archive:
         for source in files:
             archive.write(source, 'filming_locations/' + source.relative_to(ROOT).as_posix())

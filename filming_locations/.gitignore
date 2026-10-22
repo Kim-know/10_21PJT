@@ -8,3 +8,5 @@ __pycache__/
 data/collected/
 data/confirmed_locations.sqlite3*
 .tmp/
+
+data/research_documents.sqlite3*

@@ -32,41 +32,32 @@ EXAMPLES = [
 ]
 
 
+FILM_CSS = "\n.example-grid{position:relative;display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:12px;background:#252b28;padding:34px 12px;border:1px solid #353b32;border-radius:5px;box-shadow:0 14px 32px #302c201c;isolation:isolate}\n.example-grid:before,.example-grid:after{content:'';position:absolute;left:14px;right:14px;height:10px;background:repeating-linear-gradient(90deg,#eee8da 0 15px,transparent 15px 29px);opacity:.9;pointer-events:none}.example-grid:before{top:11px}.example-grid:after{bottom:11px}\n.scene-example{background:radial-gradient(#7c6c4610 .65px,transparent .7px),#f3ecdc;background-size:5px 5px,auto;border:1px solid #141c16;border-radius:2px;padding:18px;display:flex;flex-direction:column;min-width:0;color:#343b2f;box-shadow:inset 0 0 25px #a7977620}\n.film-frame-number{display:flex;justify-content:space-between;gap:7px;color:#7f6840;border-bottom:1px solid #b8aa8666;padding-bottom:10px;margin-bottom:15px;font-size:10px;font-family:monospace;letter-spacing:1px}.film-frame-number span{font-size:8px;letter-spacing:.7px;align-self:center}\n.example-category{font-size:.75rem;color:#856940;font-weight:700;letter-spacing:.08em;margin-bottom:7px}.example-film{font-size:1.06rem;font-weight:700;margin-bottom:13px;word-break:keep-all}.example-film span{font-size:.75rem;color:#7b806e;font-weight:400}\n.scene-example img{width:100%;height:180px;object-fit:contain;background:#222b25;border-radius:2px;border:4px solid #252b28;display:block;filter:saturate(.9)}\n.example-question{font-size:.84rem;line-height:1.75;margin-top:13px;min-height:60px;word-break:keep-all}.example-arrow{color:#927745;text-align:center;padding:10px 0;font-size:1.2rem}.example-arrow span{font-size:.73rem;vertical-align:middle;margin-left:5px}\n.example-result{border-top:1px solid #b8aa8666;padding-top:16px;flex:1}.example-result h3{font-size:1.08rem!important;padding:0!important;margin:0 0 7px!important;color:#343b2f}.example-address{color:#777d6b;font-size:.76rem;line-height:1.6}.example-result p{font-size:.84rem;line-height:1.8;margin:12px 0;word-break:keep-all}.example-note{font-size:.74rem;line-height:1.75;color:#777d6b;background:#ded5bf60;padding:10px;border-radius:3px}\n.example-links{display:flex;flex-wrap:wrap;gap:14px;margin:18px 0 12px}.example-links a{font-size:.77rem;font-weight:600;color:#805c35;text-decoration:none}.example-credit,.example-credit a{font-size:.75rem;color:#626b59;line-height:1.8;overflow-wrap:anywhere}.example-credit a{text-decoration:underline}\n.st-key-example_gallery,.film-gallery{container-type:inline-size}\n@container(max-width:820px){.example-grid{grid-template-columns:1fr;padding:14px 30px;gap:14px}.example-grid:before,.example-grid:after{top:14px;bottom:14px;width:10px;height:auto;right:auto;background:repeating-linear-gradient(180deg,#eee8da 0 15px,transparent 15px 29px)}.example-grid:before{left:10px}.example-grid:after{left:auto;right:10px}.scene-example{padding:20px}.scene-example img{height:230px}.example-question{min-height:0}.film-frame-number span{font-size:9px}}\n"
+
+FILM_CSS += '\n.example-grid{background:transparent;border:0;border-radius:0;box-shadow:none;padding:0;gap:28px}.example-grid:before,.example-grid:after{display:none}.scene-example{background:white;border:0;border-top:2px solid #202426;border-radius:0;padding:22px 0;box-shadow:none;color:#252a2c}.film-frame-number{display:none}.example-category{color:#a1352b;letter-spacing:0}.example-film{font-size:1.2rem}.scene-example img{border:0;border-radius:0;height:220px;background:#14191c;filter:none}.example-result{border-color:#d6d9d9}.example-result h3{color:#1b2023}.example-address,.example-note,.example-credit,.example-credit a{color:#5c6468}.example-note{background:#eeefed;border-radius:0}.example-arrow,.example-links a{color:#a1352b}.example-result p{color:#353b3e}\n@container(max-width:820px){.example-grid{padding:0;gap:22px}.scene-example{padding:20px 0}.scene-example img{height:240px}}\n'
+
+FILM_CSS += '\n.scene-example img{object-fit:cover;object-position:center;background:transparent}\n'
+
 def render_examples():
     st.divider()
     st.subheader('이런 장면을 찾아볼 수 있어요')
-    st.caption('영화 장면 한 장에서 여행할 장소까지. 촬영지 자료로 구성한 사용 예시입니다.')
+    st.caption('장면 속 단서를 실제 촬영지와 연결한 예시입니다.')
     cards = []
-    for item in EXAMPLES:
+    for index,item in enumerate(EXAMPLES,1):
         e = {key: escape(value, quote=True) for key, value in item.items()}
         map_url = 'https://map.naver.com/p/search/' + quote(item['place'] + ' ' + item['region'])
         cards.append(f'''<article class="scene-example">
+<div class="film-frame-number">FRAME {index:02d} <span>35 MM · SCENE TO PLACE</span></div>
 <div class="example-category">{e['category']}</div>
 <div class="example-film">{e['movie']} <span>({e['year']})</span></div>
-<a href="{e['image_source']}" target="_blank" rel="noopener noreferrer" aria-label="{e['movie']} 장면 출처 보기"><img src="{e['image']}" alt="{e['movie']}의 {e['category']} 장면" referrerpolicy="no-referrer"></a>
+<a href="{e['image_source']}" target="_blank" rel="noopener noreferrer" aria-label="{e['movie']} 장면 출처 보기"><img src="{e['image']}" alt="{e['movie']}의 {e['category']} 장면" loading="lazy" width="640" height="420" referrerpolicy="no-referrer"></a>
 <div class="example-question">“{e['clue']}”</div>
 <div class="example-arrow" aria-label="장면에서 장소로">↓ <span>이 장면의 장소</span></div>
 <div class="example-result"><h3>{e['place']}</h3><div class="example-address">{e['region']}</div><p>{e['description']}</p><div class="example-note">{e['note']}</div></div>
 <div class="example-links"><a href="{map_url}" target="_blank" rel="noopener noreferrer">지도 보기 ↗</a><a href="{e['source']}" target="_blank" rel="noopener noreferrer">촬영지 근거 ↗</a></div>
 <div class="example-credit"><a href="{e['image_source']}" target="_blank" rel="noopener noreferrer">{e['credit']}</a><br>장소 정보: {e['authority']}</div>
 </article>''')
-    st.markdown('''<style>
-.example-grid {display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:18px;container-type:inline-size;}
-.scene-example {border:1px solid #cbd5e1;border-radius:16px;overflow:hidden;padding:20px;display:flex;flex-direction:column;min-width:0;}
-.example-category {font-size:.8rem;color:#a33e35;font-weight:700;letter-spacing:.04em;margin-bottom:8px;}
-.example-film {font-size:1.12rem;font-weight:700;margin-bottom:14px;}.example-film span{font-size:.8rem;color:#64748b;font-weight:400;}
-.scene-example img {width:100%;height:180px;object-fit:contain;background:#17202b;border-radius:9px;display:block;}
-.example-question {font-size:.85rem;line-height:1.65;margin-top:13px;min-height:56px;word-break:keep-all;}
-.example-arrow {color:#b6453b;text-align:center;padding:12px 0;font-size:1.3rem;}.example-arrow span {font-size:.75rem;vertical-align:middle;margin-left:5px;}
-.example-result {border-top:1px solid #dce3eb;padding-top:16px;flex:1;}
-.example-result h3 {font-size:1.14rem!important;padding:0!important;margin:0 0 7px!important;}
-.example-address {color:#64748b;font-size:.78rem;line-height:1.6;}.example-result p {font-size:.87rem;line-height:1.75;margin:12px 0;word-break:keep-all;}
-.example-note {font-size:.75rem;line-height:1.7;color:#64748b;background:rgba(148,163,184,.1);padding:10px;border-radius:8px;}
-.example-links {display:flex;gap:16px;margin:18px 0 12px;}.example-links a {font-size:.8rem;font-weight:600;color:#a33e35;text-decoration:none;}
-.example-credit,.example-credit a {font-size:.67rem;color:#64748b;line-height:1.7;}.example-credit a {text-decoration:underline;}
-.st-key-example_gallery {container-type:inline-size;}
-@container(max-width:820px){.example-grid{grid-template-columns:1fr;}.scene-example img{height:240px;}.example-question{min-height:0;}}
-</style>''', unsafe_allow_html=True)
+    st.markdown('<style>'+FILM_CSS+'</style>',unsafe_allow_html=True)
     with st.container(key='example_gallery'):
         st.markdown('<div class="example-grid">' + ''.join(cards) + '</div>', unsafe_allow_html=True)
     st.caption('위 예시는 실시간 AI 검색 결과가 아닙니다. 세트장·CG이거나 배경 단서가 적은 장면은 위치를 찾기 어려울 수 있어요.')
