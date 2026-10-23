@@ -35,63 +35,32 @@ def render_place_review(candidate, sources, work, media_type, review_id):
         episode = st.text_input('회차·시점 (선택)', max_chars=80, key=key+'_episode', placeholder='예: 8회 / 00:32:10')
         scene_description = st.text_area('저장할 장면 설명 (선택)', max_chars=500, key=key+'_scene_description')
         st.link_button('장소명·주소로 지도에서 확인', 'https://map.naver.com/p/search/' + quote(name + ' ' + address))
-        coordinate_mode = st.radio('지도에 표시할 위치', ['위치 후보 검색', '위도·경도 직접 입력', '좌표 없이 자료실에만 저장'],
-                                    key=key + '_coordinate_mode')
+        st.caption('주소로 저장하면 지도 위치를 자동으로 찾습니다. 위치 검색이 지연되어도 장소는 저장됩니다.')
         latitude = longitude = None
         coordinate_source = ''
-        if coordinate_mode == '위치 후보 검색':
-            st.caption('네이버 지도와 다른 OpenStreetMap 검색입니다. 전체 검색에 결과가 없으면 주소·장소명을 나눠 검색합니다. 동명 장소가 있을 수 있으므로 주소와 지도 위치를 확인해 주세요.')
-            query = (name + ' ' + address).strip()
-            if st.button('이 장소의 위치 후보 찾기', key=key + '_geocode'):
-                try:
-                    with st.spinner('지도 위치 후보를 찾고 있어요…'):
-                        st.session_state[key + '_geocoded'] = {'query': query, 'points': lookup(query, name=name, address=address)}
-                except Exception:
-                    st.warning('위치 후보를 찾지 못했어요. 잠시 후 다시 시도하거나 좌표를 직접 입력해 주세요.')
-            found = st.session_state.get(key + '_geocoded', {})
-            if found.get('query') == query:
-                points = found['points']
-                if points:
-                    chosen = st.selectbox('주소와 일치하는 위치 후보', list(range(len(points))),
-                                          format_func=lambda i: points[i]['label'], index=None,
-                                          placeholder='위치 후보를 선택해 주세요', key=key + '_point_' + digest(query)[:8])
-                    if chosen is not None:
-                        point = points[chosen]
-                        latitude, longitude, coordinate_source = point['latitude'], point['longitude'], point['source']
-                else:
-                    st.info('지도 검색 서비스에서 일치하는 위치 후보를 찾지 못했습니다. 주소가 틀렸다는 뜻은 아니에요. 외부 지도에서 좌표를 확인해 직접 입력하거나 좌표 없이 저장할 수 있어요.')
-        elif coordinate_mode == '위도·경도 직접 입력':
-            left, right = st.columns(2)
-            lat_text = left.text_input('위도', placeholder='예: 37.5796', key=key + '_lat')
-            lon_text = right.text_input('경도', placeholder='예: 126.9770', key=key + '_lon')
-            if lat_text or lon_text:
-                try:
-                    latitude, longitude = float(lat_text), float(lon_text)
-                    if not (-90 <= latitude <= 90 and -180 <= longitude <= 180):
-                        raise ValueError
-                    coordinate_source = '사용자가 외부 지도에서 확인한 좌표 직접 입력'
-                except ValueError:
-                    latitude = longitude = None
-                    st.warning('올바른 위도·경도를 모두 입력해 주세요.')
         coordinates_confirmed = False
-        if latitude is not None:
-            st.map([{'lat': latitude, 'lon': longitude}], zoom=14, size=60, height=230)
-            st.link_button('OpenStreetMap에서 이 좌표 확인',
-                           f'https://www.openstreetmap.org/?mlat={latitude}&mlon={longitude}#map=17/{latitude}/{longitude}')
-            coordinates_confirmed = st.checkbox('지도 표식이 이 장소의 위치인 것도 확인했어요',
-                key=key + '_coordinate_ok_' + digest([name, address, latitude, longitude])[:12])
-        ready = bool(name.strip() and address.strip() and region.strip()
-                     and (coordinate_mode == '좌표 없이 자료실에만 저장' or coordinates_confirmed))
-        if coordinate_mode == '좌표 없이 자료실에만 저장':
-            st.caption('자료실에는 추가되지만, 지도 핀은 확인한 좌표를 추가한 뒤 표시돼요.')
+        ready = bool(name.strip() and address.strip() and region.strip())
         if st.button('맞아요, 확인한 장소를 저장할게요', type='primary', disabled=not ready, key=key + '_save'):
             try:
                 with st.spinner('확인한 장소를 저장하고 검색 자료에 반영하고 있어요…'):
+                    # 저장을 먼저 완료한다. 외부 지오코더 실패가 DB 저장을 막지 않는다.
                     record = save_confirmed(candidate=candidate, sources=sources, work=work,
                         media_type=media_type, name=name, address=address, region=region, confirmed=True,
                         latitude=latitude, longitude=longitude, coordinates_confirmed=coordinates_confirmed,
                         coordinate_source=coordinate_source, episode=episode, scene_description=scene_description)
                     st.session_state[key + '_saved'] = record['id']
+                    try:
+                        from services.geocoding import resolve_address
+                        point = resolve_address(name, address, load_catalog())
+                        if point:
+                            record = save_confirmed(candidate=candidate, sources=sources, work=work,
+                                media_type=media_type, name=name, address=address, region=region, confirmed=True,
+                                latitude=point['latitude'], longitude=point['longitude'],
+                                coordinates_confirmed=True, coordinate_source='주소 자동 변환 · ' + point['source'],
+                                episode=episode, scene_description=scene_description)
+                    except Exception:
+                        st.info('장소는 저장했습니다. 지도 위치 자동 검색은 완료하지 못했습니다.')
+
                     try:
                         build_index([record])
                         mark_indexed(record['id'])
@@ -106,6 +75,6 @@ def render_place_review(candidate, sources, work, media_type, review_id):
             saved = next((p for p in load_catalog() if p['id'] == saved_id), None)
             if saved:
                 st.success('자료실과 지도에 반영했어요.' if saved.get('latitude') is not None
-                           else '자료실에 저장했어요. 좌표를 확인하면 지도에도 표시할 수 있어요.')
+                           else '주소로 자료실에 저장했습니다. 지도 위치는 아직 자동으로 찾지 못했습니다.')
                 st.button('저장한 장소를 자료실에서 보기', key=key + '_open',
                           on_click=open_archive, args=(saved_id,))

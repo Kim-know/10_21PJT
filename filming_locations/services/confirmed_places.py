@@ -149,7 +149,8 @@ def save_confirmed(*, candidate, sources, work, media_type, name, address, regio
                       review_original_address=candidate.get('address', ''))
         if latitude is not None:
             record.update(latitude=float(latitude), longitude=float(longitude),
-                          coordinate_status='사용자가 지도 위치 확인 · 현장 정밀도 미검증',
+                          coordinate_status=('주소 자동 변환 · 지도 위치 추정' if coordinate_source.startswith('주소 자동 변환')
+                                             else '사용자가 지도 위치 확인 · 현장 정밀도 미검증'),
                           coordinate_source=coordinate_source)
         db.execute('INSERT INTO confirmed_places(id,identity,payload,indexed) VALUES (?,?,?,0) '
                    'ON CONFLICT(identity) DO UPDATE SET payload=excluded.payload,indexed=0',

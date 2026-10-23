@@ -159,8 +159,9 @@ if submitted:
             calls_display.caption(f"오늘 AI 호출 {call_count()} / {config['daily_calls']}회")
         except ValueError as error:
             st.warning(str(error))
-        except Exception:
-            st.error('검색을 마치지 못했습니다. GMS 키·이미지 입력 지원 모델·네트워크 설정을 확인해 주세요. 자동으로 재호출하지 않습니다.')
+        except Exception as error:
+            from services.error_messages import search_error_message
+            st.error(search_error_message(error))
 
 result = st.session_state.get('scene_result')
 if result and st.session_state.get('scene_signature') != signature:

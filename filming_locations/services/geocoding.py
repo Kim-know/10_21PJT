@@ -55,3 +55,25 @@ def lookup(query, *, name="", address=""):
         if points:
             return [dict(point, query_used=variant) for point in points]
     return []
+
+
+def resolve_address(name, address, catalog=()):
+    """같은 주소의 기존 위치를 우선 재사용하고 외부 주소 검색을 시도한다."""
+    import re
+    def normalize(value):
+        value = str(value).strip()
+        for short, full in [('경북 ', '경상북도 '), ('경남 ', '경상남도 '), ('전남 ', '전라남도 '),
+                            ('충북 ', '충청북도 '), ('충남 ', '충청남도 '), ('경기 ', '경기도 ')]:
+            if value.startswith(short):
+                value = full + value[len(short):]
+                break
+        return re.sub(r'\s+', '', value)
+    target = normalize(address)
+    if not target:
+        return None
+    for place in catalog:
+        if normalize(place.get('address', '')) == target and place.get('latitude') is not None and place.get('longitude') is not None:
+            return dict(latitude=place['latitude'], longitude=place['longitude'], source='기존 자료의 동일 주소 위치')
+    # 주소를 우선 검색하며 이름은 보조 단서로 사용한다.
+    points = lookup(address, name=name, address=address)
+    return points[0] if points else None

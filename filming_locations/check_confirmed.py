@@ -63,7 +63,8 @@ def run():
         result = dict(clues={'description': '테스트 장면', 'visible_text': [], 'features': []},
                       candidates=[candidate], sources=[SOURCE], references=[], uncertainty='', notices=[], queries=[], usage=[])
         with patch('ui.clipboard_image.clipboard_image', return_value=raw), \
-             patch('ui.place_review.build_index') as index:
+             patch('ui.place_review.build_index') as index, \
+             patch('services.geocoding.resolve_address', side_effect=RuntimeError('offline')):
             app = AppTest.from_file('app.py', default_timeout=30).run()
             app.text_input[0].set_value('테스트영화').run()
             signature = hashlib.sha256(json.dumps(['영화', '테스트영화', '', '', True], ensure_ascii=False).encode()+raw).hexdigest()
@@ -74,7 +75,7 @@ def run():
             next(r for r in app.radio if r.label == '장소 확인').set_value('다른 장소예요').run()
             assert len(saved_records()) == 1
             next(r for r in app.radio if r.label == '장소 확인').set_value('맞아요').run()
-            next(r for r in app.radio if r.label == '지도에 표시할 위치').set_value('좌표 없이 자료실에만 저장').run()
+            assert not any(r.label == '지도에 표시할 위치' for r in app.radio)
             save = next(b for b in app.button if b.label == '맞아요, 확인한 장소를 저장할게요')
             assert not save.disabled
             save.click().run()
